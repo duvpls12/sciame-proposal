@@ -600,6 +600,53 @@ section {
   height: 0;
   overflow: hidden;
   min-height: 220px;
+  background: var(--bg-secondary);
+}
+
+.video-card .video-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.3s ease;
+}
+
+.video-card:hover .video-wrapper img {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+
+.video-card .play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all var(--transition);
+  pointer-events: none;
+}
+
+.video-card:hover .play-btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-card .play-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+  margin-left: 3px;
 }
 
 .video-card .video-wrapper iframe {
@@ -1564,21 +1611,24 @@ footer .footer-line {
 
     <h4 class="reveal stagger-3" style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm);">Example Work</h4>
     <div class="video-grid cols-3 reveal stagger-3">
-      <div class="video-card">
+      <div class="video-card" data-vimeo="1133551881">
         <div class="video-wrapper">
-          <iframe src="https://player.vimeo.com/video/1133551881?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Property Spotlight Example 1"></iframe>
+          <img src="https://vumbnail.com/1133551881.jpg" alt="Property Spotlight Example 1" loading="lazy">
+          <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
         </div>
         <div class="video-label">Spotlight Example</div>
       </div>
-      <div class="video-card">
+      <div class="video-card" data-vimeo="1138682143">
         <div class="video-wrapper">
-          <iframe src="https://player.vimeo.com/video/1138682143?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Property Spotlight Example 2"></iframe>
+          <img src="https://vumbnail.com/1138682143.jpg" alt="Property Spotlight Example 2" loading="lazy">
+          <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
         </div>
         <div class="video-label">Spotlight Example</div>
       </div>
-      <div class="video-card">
+      <div class="video-card" data-vimeo="1126251648">
         <div class="video-wrapper">
-          <iframe src="https://player.vimeo.com/video/1126251648?h=bc301e9cfe&badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Property Spotlight Example 3"></iframe>
+          <img src="https://vumbnail.com/1126251648.jpg" alt="Property Spotlight Example 3" loading="lazy">
+          <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
         </div>
         <div class="video-label">Spotlight Example</div>
       </div>
@@ -1622,27 +1672,31 @@ footer .footer-line {
 
     <h4 class="reveal stagger-3" style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm);">Reel Examples</h4>
     <div class="video-grid cols-4 reveal stagger-3">
-      <div class="video-card">
+      <div class="video-card" data-vimeo="1149589027">
         <div class="video-wrapper">
-          <iframe src="https://player.vimeo.com/video/1149589027?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Lifestyle Reel Example 1"></iframe>
+          <img src="https://vumbnail.com/1149589027.jpg" alt="Lifestyle Reel Example 1" loading="lazy">
+          <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
         </div>
         <div class="video-label">Lifestyle Reel</div>
       </div>
-      <div class="video-card">
+      <div class="video-card" data-vimeo="1158268390">
         <div class="video-wrapper">
-          <iframe src="https://player.vimeo.com/video/1158268390?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Lifestyle Reel Example 2"></iframe>
+          <img src="https://vumbnail.com/1158268390.jpg" alt="Lifestyle Reel Example 2" loading="lazy">
+          <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
         </div>
         <div class="video-label">Lifestyle Reel</div>
       </div>
-      <div class="video-card">
+      <div class="video-card" data-vimeo="1137897164">
         <div class="video-wrapper">
-          <iframe src="https://player.vimeo.com/video/1137897164?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Lifestyle Reel Example 3"></iframe>
+          <img src="https://vumbnail.com/1137897164.jpg" alt="Lifestyle Reel Example 3" loading="lazy">
+          <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
         </div>
         <div class="video-label">Lifestyle Reel</div>
       </div>
-      <div class="video-card">
+      <div class="video-card" data-vimeo="1135492690">
         <div class="video-wrapper">
-          <iframe src="https://player.vimeo.com/video/1135492690?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Lifestyle Reel Example 4"></iframe>
+          <img src="https://vumbnail.com/1135492690.jpg" alt="Lifestyle Reel Example 4" loading="lazy">
+          <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
         </div>
         <div class="video-label">Lifestyle Reel</div>
       </div>
@@ -1755,9 +1809,10 @@ footer .footer-line {
 
     <h4 class="reveal stagger-3" style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm);">Developer Interview Example</h4>
     <div class="video-grid cols-2 reveal stagger-3">
-      <div class="video-card">
+      <div class="video-card" data-vimeo="1095806811">
         <div class="video-wrapper">
-          <iframe src="https://player.vimeo.com/video/1095806811?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Developer Interview Example"></iframe>
+          <img src="https://vumbnail.com/1095806811.jpg" alt="Developer Interview Example" loading="lazy">
+          <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
         </div>
         <div class="video-label">Interview Reference</div>
       </div>
@@ -2300,15 +2355,11 @@ footer .footer-line {
     if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
   });
 
-  // Video cards: extract Vimeo ID and open in lightbox
-  document.querySelectorAll('.video-card').forEach(function(card) {
+  // Video cards: open Vimeo lightbox from data attribute
+  document.querySelectorAll('.video-card[data-vimeo]').forEach(function(card) {
     card.addEventListener('click', function() {
-      var iframe = card.querySelector('iframe');
-      if (iframe) {
-        var src = iframe.getAttribute('src');
-        var match = src.match(/\/video\/(\d+)/);
-        if (match) openLightboxVideo(match[1]);
-      }
+      var vimeoId = card.getAttribute('data-vimeo');
+      if (vimeoId) openLightboxVideo(vimeoId);
     });
   });
 
