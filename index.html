@@ -1625,9 +1625,9 @@ footer .footer-line {
         </div>
         <div class="video-label">Spotlight Example</div>
       </div>
-      <div class="video-card" data-vimeo="1126251648">
+      <div class="video-card" data-vimeo="1126251648" data-vimeo-hash="bc301e9cfe">
         <div class="video-wrapper">
-          <img src="https://vumbnail.com/1126251648.jpg" alt="Property Spotlight Example 3" loading="lazy">
+          <img src="https://vumbnail.com/1126251648_bc301e9cfe.jpg" alt="Property Spotlight Example 3" loading="lazy">
           <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
         </div>
         <div class="video-label">Spotlight Example</div>
@@ -2424,8 +2424,10 @@ footer .footer-line {
     document.body.style.overflow = 'hidden';
   }
 
-  function openLightboxVideo(vimeoId) {
-    lightboxContent.innerHTML = '<div class="lightbox-video"><iframe src="https://player.vimeo.com/video/' + vimeoId + '?autoplay=1&badge=0&autopause=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
+  function openLightboxVideo(vimeoId, hash) {
+    var src = 'https://player.vimeo.com/video/' + vimeoId + '?autoplay=1&badge=0&autopause=0';
+    if (hash) src += '&h=' + hash;
+    lightboxContent.innerHTML = '<div class="lightbox-video"><iframe src="' + src + '" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -2453,7 +2455,8 @@ footer .footer-line {
   document.querySelectorAll('.video-card[data-vimeo]').forEach(function(card) {
     card.addEventListener('click', function() {
       var vimeoId = card.getAttribute('data-vimeo');
-      if (vimeoId) openLightboxVideo(vimeoId);
+      var hash = card.getAttribute('data-vimeo-hash');
+      if (vimeoId) openLightboxVideo(vimeoId, hash);
     });
   });
 
