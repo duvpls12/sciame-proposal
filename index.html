@@ -423,6 +423,54 @@ section {
   animation: scrollPulse 2s infinite;
 }
 
+/* Hero Logos */
+.hero-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0;
+  animation: fadeUp 1s 0.1s forwards;
+}
+
+.hero-logos img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.85;
+  filter: brightness(1.1);
+  transition: opacity var(--transition);
+}
+
+.hero-logos img:hover { opacity: 1; }
+
+.hero-logos .logo-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255,255,255,0.15);
+}
+
+/* Footer Logos */
+.footer-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-logos img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: brightness(1.1);
+  transition: opacity var(--transition);
+}
+
+.footer-logos img:hover { opacity: 0.8; }
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1281,6 +1329,13 @@ footer .footer-line {
      ============================================ -->
 <section class="hero" id="hero">
   <div class="hero-content">
+    <div class="hero-logos">
+      <img src="assets/sciame-logo.webp" alt="Sciame Homes logo">
+      <div class="logo-divider"></div>
+      <img src="assets/trevor-logo.webp" alt="Trevor Melton Photography logo">
+      <div class="logo-divider"></div>
+      <img src="assets/wcc-logo.webp" alt="WorldClass Creative logo">
+    </div>
     <p class="hero-eyebrow">Content Partnership Proposal</p>
     <h1>Sciame Homes</h1>
     <p class="hero-subtitle">Prepared by Trevor Melton Photography &times; WorldClass Creative</p>
@@ -1940,6 +1995,10 @@ footer .footer-line {
      FOOTER
      ============================================ -->
 <footer>
+  <div class="footer-logos">
+    <img src="assets/wcc-logo.webp" alt="WorldClass Creative logo">
+    <img src="assets/trevor-logo.webp" alt="Trevor Melton Photography logo">
+  </div>
   <div class="footer-line"></div>
   <p>Prepared by WorldClass Creative &times; Trevor Melton Photography</p>
 </footer>
