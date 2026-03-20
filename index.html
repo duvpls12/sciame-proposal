@@ -80,6 +80,7 @@ h4 { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--accent); }
 
 p {
   max-width: 70ch;
+  margin-inline: auto;
   color: var(--text-secondary);
   font-size: clamp(0.95rem, 1.5vw, 1.05rem);
 }
@@ -274,6 +275,7 @@ p {
   max-width: var(--max-width);
   margin-inline: auto;
   padding-inline: var(--spacing-md);
+  text-align: center;
 }
 
 section {
@@ -295,6 +297,7 @@ section {
 .section-number {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -302,6 +305,7 @@ section {
   letter-spacing: 0.15em;
   color: var(--accent);
   margin-bottom: var(--spacing-sm);
+  width: 100%;
 }
 
 .section-number::before {
@@ -486,6 +490,7 @@ section {
    ============================================ */
 .deliverable-header {
   margin-bottom: var(--spacing-lg);
+  text-align: center;
 }
 
 .deliverable-header h2 {
@@ -497,6 +502,7 @@ section {
   line-height: 1.8;
   color: var(--text-secondary);
   max-width: 65ch;
+  margin-inline: auto;
 }
 
 /* Bullet lists */
@@ -504,6 +510,7 @@ section {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem var(--spacing-md);
   margin-block: var(--spacing-md);
 }
@@ -529,6 +536,7 @@ section {
 .property-tags {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
   margin-block: var(--spacing-md);
 }
@@ -559,15 +567,17 @@ section {
 }
 
 .video-grid.cols-3 {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .video-grid.cols-2 {
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: 1fr;
+  max-width: 800px;
+  margin-inline: auto;
 }
 
 .video-grid.cols-4 {
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .video-card {
@@ -589,6 +599,7 @@ section {
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
+  min-height: 220px;
 }
 
 .video-card .video-wrapper iframe {
@@ -606,6 +617,7 @@ section {
   color: var(--text-muted);
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 /* ============================================
@@ -624,6 +636,7 @@ section {
   border-radius: 12px;
   padding: 1.5rem;
   transition: all var(--transition);
+  text-align: center;
 }
 
 .moment-card:hover {
@@ -664,7 +677,7 @@ section {
 }
 
 .styled-table th {
-  text-align: left;
+  text-align: center;
   padding: 1rem 1.25rem;
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -679,6 +692,7 @@ section {
   padding: 0.9rem 1.25rem;
   color: var(--text-secondary);
   border-bottom: 1px solid var(--border-subtle);
+  text-align: center;
 }
 
 .styled-table tbody tr:last-child td {
@@ -791,11 +805,16 @@ section {
   background: linear-gradient(90deg, var(--accent), transparent);
 }
 
+.bonus-card {
+  text-align: center;
+}
+
 .bonus-card h4 { margin-bottom: 0.75rem; }
 
 .bonus-card p {
   font-size: 0.9rem;
   color: var(--text-muted);
+  margin-inline: auto;
 }
 
 /* ============================================
@@ -813,6 +832,7 @@ section {
   margin-bottom: var(--spacing-sm);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 
@@ -836,9 +856,10 @@ section {
   padding: 0.75rem 0;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
 }
 
 .location-item:last-child { border-bottom: none; }
@@ -852,8 +873,7 @@ section {
   font-size: 0.8rem;
   color: var(--text-muted);
   font-style: italic;
-  text-align: right;
-  flex-shrink: 0;
+  text-align: center;
 }
 
 /* ============================================
@@ -873,6 +893,7 @@ section {
   padding: var(--spacing-md);
   position: relative;
   transition: all var(--transition);
+  text-align: center;
 }
 
 .schedule-day:hover {
@@ -903,6 +924,7 @@ section {
   font-size: 1.1rem;
   color: var(--text-primary);
   margin-bottom: 0.75rem;
+  text-align: center;
 }
 
 .schedule-day .location-label {
@@ -910,11 +932,14 @@ section {
   color: var(--accent);
   margin-bottom: 0.5rem;
   font-weight: 500;
+  text-align: center;
 }
 
 .schedule-day ul {
   list-style: none;
   margin-bottom: 0.75rem;
+  display: inline-block;
+  text-align: left;
 }
 
 .schedule-day ul li {
@@ -990,6 +1015,7 @@ section {
   align-items: center;
   padding: 1.1rem 0;
   border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
 }
 
 .line-item:last-child { border-bottom: none; }
@@ -1072,11 +1098,15 @@ section {
   border-radius: 12px;
   padding: var(--spacing-md);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
   margin-block: var(--spacing-md);
-  flex-wrap: wrap;
+  text-align: center;
+}
+
+.addon-card .addon-info {
+  text-align: center;
 }
 
 .addon-card .addon-info h3 {
@@ -1088,6 +1118,7 @@ section {
   font-size: 0.9rem;
   color: var(--text-muted);
   max-width: 50ch;
+  margin-inline: auto;
 }
 
 .addon-card .addon-price {
@@ -1117,7 +1148,7 @@ section {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: var(--spacing-md);
   margin-block: var(--spacing-lg);
-  text-align: left;
+  text-align: center;
 }
 
 .step-card {
@@ -1237,13 +1268,17 @@ footer .footer-line {
   }
   .nav-toggle { display: block; }
 
-  .video-grid.cols-3,
+  .video-grid.cols-3 {
+    grid-template-columns: 1fr;
+  }
+
   .video-grid.cols-4 {
     grid-template-columns: 1fr;
   }
 
   .video-grid.cols-2 {
     grid-template-columns: 1fr;
+    max-width: 100%;
   }
 
   .photo-grid {
@@ -1860,8 +1895,8 @@ footer .footer-line {
      ============================================ -->
 <section id="investment">
   <div class="container">
-    <div class="deliverable-header reveal" style="text-align: center; margin-bottom: var(--spacing-lg);">
-      <span class="section-number" style="justify-content: center;">Investment</span>
+    <div class="deliverable-header reveal" style="margin-bottom: var(--spacing-lg);">
+      <span class="section-number">Investment</span>
       <h2>Your Investment</h2>
     </div>
 
