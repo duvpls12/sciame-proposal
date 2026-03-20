@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sciame Homes — Content Partnership Proposal</title>
+<style>
+/* ============================================
+   DESIGN TOKENS
+   ============================================ */
+:root {
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #161616;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222;
+  --text-primary: #f5f0eb;
+  --text-secondary: #a09a93;
+  --text-muted: #6b6560;
+  --accent: #c9a96e;
+  --accent-dim: rgba(201, 169, 110, 0.15);
+  --accent-glow: rgba(201, 169, 110, 0.08);
+  --border: rgba(201, 169, 110, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+  --spacing-2xl: 8rem;
+  --max-width: 1200px;
+  --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--text-primary); }
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 3rem); color: var(--text-primary); }
+h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); color: var(--text-primary); }
+h4 { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--accent); }
+
+p {
+  max-width: 70ch;
+  color: var(--text-secondary);
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+}
+
+/* ============================================
+   SCROLL PROGRESS BAR
+   ============================================ */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), #e0c88a);
+  z-index: 1000;
+  transition: width 0.1s linear;
+}
+
+/* ============================================
+   STICKY NAV
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding: 0.8rem var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(13, 13, 13, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transform: translateY(-100%);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.nav.visible {
+  transform: translateY(0);
+  border-bottom-color: var(--border);
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--spacing-sm);
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  transition: all var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+/* ============================================
+   SECTION PROGRESS DOTS
+   ============================================ */
+.section-dots {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.section-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.section-dots .dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.section-dots .dot-label {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.section-dots .dot:hover .dot-label { opacity: 1; }
+
+/* ============================================
+   REVEAL ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+.stagger-6 { transition-delay: 0.6s; }
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+.container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--spacing-md);
+}
+
+section {
+  padding-block: var(--spacing-xl);
+  position: relative;
+}
+
+/* ============================================
+   SECTION DIVIDERS
+   ============================================ */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
+  opacity: 0.2;
+  margin-block: 0;
+}
+
+.section-number {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: var(--spacing-sm);
+}
+
+.section-number::before {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding-block: var(--spacing-2xl);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(201, 169, 110, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(201, 169, 110, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to top, var(--bg-primary), transparent);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  padding-inline: var(--spacing-md);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-bottom: var(--spacing-md);
+  opacity: 0;
+  animation: fadeUp 1s 0.2s forwards;
+}
+
+.hero h1 {
+  margin-bottom: var(--spacing-sm);
+  opacity: 0;
+  animation: fadeUp 1s 0.4s forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+  opacity: 0;
+  animation: fadeUp 1s 0.6s forwards;
+}
+
+.hero-intro {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 700px;
+  margin-inline: auto;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s forwards;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s forwards;
+}
+
+.hero-scroll span {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+
+.hero-scroll .arrow {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s infinite;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ============================================
+   DELIVERABLE SECTIONS
+   ============================================ */
+.deliverable-header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.deliverable-header h2 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.deliverable-description {
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 65ch;
+}
+
+/* Bullet lists */
+.detail-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem var(--spacing-md);
+  margin-block: var(--spacing-md);
+}
+
+.detail-list li {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detail-list li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* Property tags */
+.property-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: var(--spacing-md);
+}
+
+.property-tag {
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  transition: all var(--transition);
+}
+
+.property-tag:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+}
+
+/* ============================================
+   VIDEO EMBED GRID
+   ============================================ */
+.video-grid {
+  display: grid;
+  gap: var(--spacing-md);
+  margin-block: var(--spacing-lg);
+}
+
+.video-grid.cols-3 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.video-grid.cols-2 {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.video-grid.cols-4 {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.video-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all var(--transition);
+}
+
+.video-card:hover {
+  border-color: var(--border);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.video-card .video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-card .video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-card .video-label {
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   LIFESTYLE MOMENTS CARDS
+   ============================================ */
+.moment-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+  margin-block: var(--spacing-md);
+}
+
+.moment-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all var(--transition);
+}
+
+.moment-card:hover {
+  border-color: var(--border);
+  background: var(--bg-card-hover);
+}
+
+.moment-card h4 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.moment-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================
+   STYLED TABLES
+   ============================================ */
+.styled-table-wrapper {
+  overflow-x: auto;
+  margin-block: var(--spacing-md);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.styled-table thead {
+  background: rgba(201, 169, 110, 0.06);
+}
+
+.styled-table th {
+  text-align: left;
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+}
+
+.styled-table td {
+  padding: 0.9rem 1.25rem;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.styled-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.styled-table tbody tr {
+  transition: background var(--transition);
+}
+
+.styled-table tbody tr:hover {
+  background: rgba(201, 169, 110, 0.03);
+}
+
+/* ============================================
+   PHOTO PLACEHOLDER GRID
+   ============================================ */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-sm);
+  margin-block: var(--spacing-lg);
+}
+
+.photo-placeholder {
+  aspect-ratio: 4/3;
+  background: var(--bg-card);
+  border: 1px dashed rgba(201, 169, 110, 0.2);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.02), rgba(201, 169, 110, 0.06));
+  pointer-events: none;
+}
+
+.photo-placeholder:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+}
+
+.photo-placeholder svg {
+  width: 32px;
+  height: 32px;
+  color: var(--text-muted);
+  opacity: 0.4;
+}
+
+.photo-placeholder span {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* ============================================
+   BONUS SECTION
+   ============================================ */
+.bonus-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: var(--spacing-sm);
+}
+
+.bonus-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+  margin-block: var(--spacing-md);
+}
+
+.bonus-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.bonus-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.bonus-card h4 { margin-bottom: 0.75rem; }
+
+.bonus-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   LOCATIONS SECTION
+   ============================================ */
+.locations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-block: var(--spacing-md);
+}
+
+.location-group h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.location-group h3 .status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.location-group h3 .status-dot.active {
+  background: #e8a838;
+  box-shadow: 0 0 8px rgba(232, 168, 56, 0.4);
+}
+
+.location-group h3 .status-dot.completed {
+  background: #5cb85c;
+  box-shadow: 0 0 8px rgba(92, 184, 92, 0.4);
+}
+
+.location-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.location-item:last-child { border-bottom: none; }
+
+.location-item .name {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.location-item .note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   SHOOT SCHEDULE
+   ============================================ */
+.schedule-timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+  margin-block: var(--spacing-lg);
+}
+
+.schedule-day {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  position: relative;
+  transition: all var(--transition);
+}
+
+.schedule-day:hover {
+  border-color: var(--border);
+}
+
+.schedule-day::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.day-number {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.schedule-day h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.schedule-day .location-label {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.schedule-day ul {
+  list-style: none;
+  margin-bottom: 0.75rem;
+}
+
+.schedule-day ul li {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding: 0.2rem 0;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.schedule-day ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  opacity: 0.4;
+}
+
+/* ============================================
+   INVESTMENT / PRICING
+   ============================================ */
+.investment-section {
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.investment-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.investment-total {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.investment-total .total-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.investment-total .total-amount {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5rem);
+  color: var(--accent);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.line-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: var(--spacing-lg);
+}
+
+.line-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.line-item:last-child { border-bottom: none; }
+
+.line-item .item-name {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.line-item .item-price {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.bonus-note {
+  text-align: center;
+  padding: 1rem;
+  background: var(--accent-dim);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid rgba(201, 169, 110, 0.2);
+}
+
+.payment-schedule {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.payment-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+  transition: all var(--transition);
+}
+
+.payment-card:hover {
+  border-color: var(--border);
+}
+
+.payment-card .payment-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.payment-card .payment-amount {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.payment-card .payment-percent {
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.payment-card .payment-timing {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+
+/* ============================================
+   ADD-ON
+   ============================================ */
+.addon-card {
+  background: var(--bg-card);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-block: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.addon-card .addon-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.addon-card .addon-info p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 50ch;
+}
+
+.addon-card .addon-price {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.addon-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: var(--spacing-sm);
+}
+
+/* ============================================
+   NEXT STEPS / CTA
+   ============================================ */
+.cta-section {
+  text-align: center;
+  padding-block: var(--spacing-2xl);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-block: var(--spacing-lg);
+  text-align: left;
+}
+
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  transition: all var(--transition);
+}
+
+.step-card:hover {
+  border-color: var(--border);
+  transform: translateY(-2px);
+}
+
+.step-number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--accent);
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.step-card h4 {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 2.5rem;
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-top: var(--spacing-md);
+}
+
+.cta-button:hover {
+  background: #d4b87a;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(201, 169, 110, 0.3);
+}
+
+.cta-button svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition);
+}
+
+.cta-button:hover svg {
+  transform: translateX(4px);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  text-align: center;
+  padding: var(--spacing-lg) var(--spacing-md);
+  border-top: 1px solid var(--border-subtle);
+}
+
+footer p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-inline: auto;
+}
+
+footer .footer-line {
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  margin: var(--spacing-sm) auto;
+  opacity: 0.4;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 3rem;
+    --spacing-xl: 4rem;
+    --spacing-2xl: 5rem;
+  }
+
+  .section-dots { display: none; }
+
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(13, 13, 13, 0.95);
+    backdrop-filter: blur(20px);
+    padding: var(--spacing-sm);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-toggle { display: block; }
+
+  .video-grid.cols-3,
+  .video-grid.cols-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .video-grid.cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .investment-section {
+    padding: var(--spacing-md);
+  }
+
+  .line-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .addon-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .schedule-timeline {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-schedule {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Sticky Navigation -->
+<nav class="nav" id="mainNav">
+  <div class="nav-brand">Sciame Homes</div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">&#9776;</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#deliverable-1">Reels</a></li>
+    <li><a href="#deliverable-2">Lifestyle</a></li>
+    <li><a href="#deliverable-3">Craft</a></li>
+    <li><a href="#deliverable-4">Interview</a></li>
+    <li><a href="#deliverable-5">Photography</a></li>
+    <li><a href="#bonus">Bonus</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#investment">Investment</a></li>
+  </ul>
+</nav>
+
+<!-- Section Progress Dots -->
+<div class="section-dots" id="sectionDots">
+  <div class="dot" data-section="hero"><span class="dot-label">Top</span></div>
+  <div class="dot" data-section="deliverable-1"><span class="dot-label">Property Reels</span></div>
+  <div class="dot" data-section="deliverable-2"><span class="dot-label">Lifestyle</span></div>
+  <div class="dot" data-section="deliverable-3"><span class="dot-label">Craft</span></div>
+  <div class="dot" data-section="deliverable-4"><span class="dot-label">Interview</span></div>
+  <div class="dot" data-section="deliverable-5"><span class="dot-label">Photography</span></div>
+  <div class="dot" data-section="bonus"><span class="dot-label">Bonus</span></div>
+  <div class="dot" data-section="locations"><span class="dot-label">Locations</span></div>
+  <div class="dot" data-section="schedule"><span class="dot-label">Schedule</span></div>
+  <div class="dot" data-section="investment"><span class="dot-label">Investment</span></div>
+  <div class="dot" data-section="next-steps"><span class="dot-label">Next Steps</span></div>
+</div>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Content Partnership Proposal</p>
+    <h1>Sciame Homes</h1>
+    <p class="hero-subtitle">Prepared by Trevor Melton Photography &times; WorldClass Creative</p>
+    <p class="hero-intro">
+      Trevor Melton Photography &times; WorldClass Creative proposes a content partnership with Sciame Homes to document, elevate, and showcase Sciame's craftsmanship, completed properties, and brand story across all active and completed projects in South Florida.
+    </p>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll to explore</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     DELIVERABLE 1 — PROPERTY SPOTLIGHT REELS
+     ============================================ -->
+<section id="deliverable-1">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <span class="section-number">Deliverable 01</span>
+      <h2>Property Spotlight Reels &times;5</h2>
+      <p class="deliverable-description">
+        30–60 second cinematic Reels per completed property. Hero showcase content for every finished Sciame project — portfolio-grade pieces that live on the website, social channels, and presentations.
+      </p>
+    </div>
+
+    <ul class="detail-list reveal stagger-1">
+      <li>Cinematic gimbal walkthrough</li>
+      <li>2–3 hero detail shots (materials, hardware, fixtures)</li>
+      <li>Golden hour or blue hour exterior</li>
+      <li>Drone establishing shot</li>
+      <li>Music-driven edit, no dialogue</li>
+    </ul>
+
+    <h4 class="reveal stagger-2" style="margin-bottom: var(--spacing-sm);">Properties</h4>
+    <div class="property-tags reveal stagger-2">
+      <span class="property-tag">Breakers Row Unit S45 (+ Atlantic Room)</span>
+      <span class="property-tag">2580 South Ocean Blvd Unit 1B6</span>
+      <span class="property-tag">369 South Lakeway Unit 2D</span>
+      <span class="property-tag">130 Sunrise Ave Unit 605/606</span>
+      <span class="property-tag">200 Algoma Road</span>
+    </div>
+
+    <h4 class="reveal stagger-3" style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm);">Example Work</h4>
+    <div class="video-grid cols-3 reveal stagger-3">
+      <div class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://player.vimeo.com/video/1133551881?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Property Spotlight Example 1"></iframe>
+        </div>
+        <div class="video-label">Spotlight Example</div>
+      </div>
+      <div class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://player.vimeo.com/video/1138682143?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Property Spotlight Example 2"></iframe>
+        </div>
+        <div class="video-label">Spotlight Example</div>
+      </div>
+      <div class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://player.vimeo.com/video/1126251648?h=bc301e9cfe&badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Property Spotlight Example 3"></iframe>
+        </div>
+        <div class="video-label">Spotlight Example</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     DELIVERABLE 2 — LIFESTYLE REELS
+     ============================================ -->
+<section id="deliverable-2">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <span class="section-number">Deliverable 02</span>
+      <h2>Lifestyle Reels &times;3</h2>
+      <p class="deliverable-description">
+        30–60 second aspirational Reels. Replaces the brand film with content that communicates who Sciame builds for — not through narration, but through feeling. Aspirational Palm Beach living tied directly to Sciame's finished work.
+      </p>
+    </div>
+
+    <div class="moment-cards reveal stagger-1">
+      <div class="moment-card">
+        <h4>Waterfront Living</h4>
+        <p>Golden hour on the water, dock or pool scene — evoking the effortless coastal lifestyle Sciame homes are built around.</p>
+      </div>
+      <div class="moment-card">
+        <h4>Indoor/Outdoor Entertaining</h4>
+        <p>Styled outdoor living space at dusk — showcasing how Sciame's design seamlessly blends interior luxury with the outdoors.</p>
+      </div>
+      <div class="moment-card">
+        <h4>Morning Light Interior</h4>
+        <p>Quiet luxury, coffee-table texture, natural light through floor-to-ceiling glass — the calm elegance of waking up in a Sciame home.</p>
+      </div>
+    </div>
+
+    <p class="reveal stagger-2" style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: var(--spacing-sm);">
+      Designed to perform across social and the website without requiring a viewer to commit to a long-form video.
+    </p>
+
+    <h4 class="reveal stagger-3" style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm);">Reel Examples</h4>
+    <div class="video-grid cols-4 reveal stagger-3">
+      <div class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://player.vimeo.com/video/1149589027?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Lifestyle Reel Example 1"></iframe>
+        </div>
+        <div class="video-label">Lifestyle Reel</div>
+      </div>
+      <div class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://player.vimeo.com/video/1158268390?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Lifestyle Reel Example 2"></iframe>
+        </div>
+        <div class="video-label">Lifestyle Reel</div>
+      </div>
+      <div class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://player.vimeo.com/video/1137897164?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Lifestyle Reel Example 3"></iframe>
+        </div>
+        <div class="video-label">Lifestyle Reel</div>
+      </div>
+      <div class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://player.vimeo.com/video/1135492690?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Lifestyle Reel Example 4"></iframe>
+        </div>
+        <div class="video-label">Lifestyle Reel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     DELIVERABLE 3 — CRAFT & PROCESS SERIES
+     ============================================ -->
+<section id="deliverable-3">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <span class="section-number">Deliverable 03</span>
+      <h2>Craft &amp; Process Series &times;2</h2>
+      <p class="deliverable-description">
+        15–45 second short-form Reels. Differentiation content showing what happens behind the walls of a luxury Sciame build.
+      </p>
+    </div>
+
+    <ul class="detail-list reveal stagger-1">
+      <li>Construction B-roll montage (fast-cut, music-driven)</li>
+      <li>Trade partner detail (welding, tile setting, millwork, custom metalwork)</li>
+      <li>Construction milestone documentation</li>
+    </ul>
+
+    <h4 class="reveal stagger-2" style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm);">Shoot Locations</h4>
+    <div class="moment-cards reveal stagger-2" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+      <div class="moment-card">
+        <h4>1420 South Ocean Blvd, Manalapan</h4>
+        <p>Exteriors finished, interiors in progress — ideal for capturing the craft mid-build.</p>
+      </div>
+      <div class="moment-card">
+        <h4>300 North Lakeway</h4>
+        <p>Select finished areas, others in progress — a mix of completed detail and active construction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     DELIVERABLE 4 — PRINCIPAL INTERVIEW
+     ============================================ -->
+<section id="deliverable-4">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <span class="section-number">Deliverable 04</span>
+      <h2>Principal Interview &amp; Soundbite Library</h2>
+      <p class="deliverable-description">
+        1 full sit-down interview (2–3 minutes) + 5 extracted short clips. Put a face and voice to the Sciame Homes brand.
+      </p>
+    </div>
+
+    <h4 class="reveal stagger-1" style="margin-bottom: var(--spacing-sm);">Interview Topics</h4>
+    <ul class="detail-list reveal stagger-1">
+      <li>Sciame's building philosophy and approach to craftsmanship</li>
+      <li>What makes a Sciame home different</li>
+      <li>The relationship between builder and client</li>
+      <li>Vision for the future of luxury construction in South Florida</li>
+    </ul>
+
+    <h4 class="reveal stagger-2" style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm);">Output Breakdown</h4>
+    <div class="styled-table-wrapper reveal stagger-2">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Asset</th>
+            <th>Length</th>
+            <th>Platform</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Full Interview</td>
+            <td>2–3 min</td>
+            <td>Website / YouTube</td>
+          </tr>
+          <tr>
+            <td>Philosophy Soundbite</td>
+            <td>15–30 sec</td>
+            <td>Instagram / LinkedIn</td>
+          </tr>
+          <tr>
+            <td>"Why We're Different" Clip</td>
+            <td>15–30 sec</td>
+            <td>Instagram / TikTok</td>
+          </tr>
+          <tr>
+            <td>Process / Craft Quote</td>
+            <td>15–30 sec</td>
+            <td>Instagram Story / Reel</td>
+          </tr>
+          <tr>
+            <td>Recruitment-Angled Clip</td>
+            <td>30–60 sec</td>
+            <td>LinkedIn / Careers Page</td>
+          </tr>
+          <tr>
+            <td>Future Vision Clip</td>
+            <td>15–30 sec</td>
+            <td>Instagram / LinkedIn</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 class="reveal stagger-3" style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm);">Developer Interview Example</h4>
+    <div class="video-grid cols-2 reveal stagger-3">
+      <div class="video-card">
+        <div class="video-wrapper">
+          <iframe src="https://player.vimeo.com/video/1095806811?badge=0&autopause=0&player_id=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Developer Interview Example"></iframe>
+        </div>
+        <div class="video-label">Interview Reference</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     DELIVERABLE 5 — PHOTOGRAPHY CONTENT BANK
+     ============================================ -->
+<section id="deliverable-5">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <span class="section-number">Deliverable 05</span>
+      <h2>Photography Content Bank</h2>
+      <p class="deliverable-description">
+        Minimum 100 edited photographs across all locations. A comprehensive visual library organized by content use — ready for website, social, presentations, and press.
+      </p>
+    </div>
+
+    <h4 class="reveal stagger-1" style="margin-bottom: var(--spacing-sm);">Categories &amp; Applications</h4>
+    <div class="styled-table-wrapper reveal stagger-1">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Use Cases</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jobsite / Construction Process</td>
+            <td>Social, website, recruitment</td>
+          </tr>
+          <tr>
+            <td>Team &amp; Leadership</td>
+            <td>About page, LinkedIn, press</td>
+          </tr>
+          <tr>
+            <td>Exterior / Architecture</td>
+            <td>Website heroes, social</td>
+          </tr>
+          <tr>
+            <td>Outdoor Living</td>
+            <td>Lifestyle content, social</td>
+          </tr>
+          <tr>
+            <td>Interior Room by Room</td>
+            <td>Website project pages, social</td>
+          </tr>
+          <tr>
+            <td>Detail &amp; Texture Series</td>
+            <td>Stories, carousels, Reel transitions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PHOTO PLACEHOLDER GRID — Replace these with actual images later -->
+    <h4 class="reveal stagger-2" style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm);">Sample Photography</h4>
+    <div class="photo-grid reveal stagger-2">
+      <!-- Photo placeholder 1: Replace src with actual image -->
+      <div class="photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Exterior / Architecture</span>
+      </div>
+      <!-- Photo placeholder 2 -->
+      <div class="photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Interior Detail</span>
+      </div>
+      <!-- Photo placeholder 3 -->
+      <div class="photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Construction Process</span>
+      </div>
+      <!-- Photo placeholder 4 -->
+      <div class="photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Outdoor Living</span>
+      </div>
+      <!-- Photo placeholder 5 -->
+      <div class="photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Team &amp; Leadership</span>
+      </div>
+      <!-- Photo placeholder 6 -->
+      <div class="photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Detail &amp; Texture</span>
+      </div>
+      <!-- Photo placeholder 7 -->
+      <div class="photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Golden Hour Exterior</span>
+      </div>
+      <!-- Photo placeholder 8 -->
+      <div class="photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span>Drone Aerial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     BONUS — CONTENT LIBRARY
+     ============================================ -->
+<section id="bonus">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <div class="bonus-badge">&#10023; Included Bonus</div>
+      <h2>Content Library</h2>
+      <p class="deliverable-description">
+        Included with the sprint — additional short-form assets pulled from footage captured across all shoot days. Delivered as a ready-to-deploy library for fresh content between larger posts.
+      </p>
+    </div>
+
+    <div class="bonus-cards reveal stagger-1">
+      <div class="bonus-card">
+        <h4>Detail &amp; Texture Clips</h4>
+        <p>Slow-motion and macro clips of materials, hardware, and finishes. Standalone 10–15 second pieces perfect for Stories, Reel intros, and transitions.</p>
+      </div>
+      <div class="bonus-card">
+        <h4>Drone Beauty Shots</h4>
+        <p>Standalone aerial clips of each property and jobsite. Clean 15-second exports ready for social deployment or website hero backgrounds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     LOCATIONS
+     ============================================ -->
+<section id="locations">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <span class="section-number">Locations</span>
+      <h2>Project Locations</h2>
+    </div>
+
+    <div class="locations-grid reveal stagger-1">
+      <div class="location-group">
+        <h3><span class="status-dot active"></span> Active Jobsites</h3>
+        <div class="location-item">
+          <span class="name">1420 South Ocean Blvd, Manalapan</span>
+          <span class="note">Exteriors finished, interiors in progress</span>
+        </div>
+        <div class="location-item">
+          <span class="name">300 North Lakeway</span>
+          <span class="note">Select areas finished, others in progress</span>
+        </div>
+      </div>
+
+      <div class="location-group">
+        <h3><span class="status-dot completed"></span> Completed Properties</h3>
+        <div class="location-item">
+          <span class="name">Breakers Row Unit S45 (+ Atlantic Room)</span>
+          <span class="note"></span>
+        </div>
+        <div class="location-item">
+          <span class="name">2580 South Ocean Blvd Unit 1B6</span>
+          <span class="note"></span>
+        </div>
+        <div class="location-item">
+          <span class="name">369 South Lakeway Unit 2D</span>
+          <span class="note"></span>
+        </div>
+        <div class="location-item">
+          <span class="name">130 Sunrise Ave Unit 605/606</span>
+          <span class="note"></span>
+        </div>
+        <div class="location-item">
+          <span class="name">200 Algoma Road</span>
+          <span class="note"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     SHOOT SCHEDULE
+     ============================================ -->
+<section id="schedule">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <span class="section-number">Schedule</span>
+      <h2>3-Day Shoot Schedule</h2>
+    </div>
+
+    <div class="schedule-timeline">
+      <div class="schedule-day reveal stagger-1">
+        <div class="day-number">Day 01</div>
+        <h4>Craft &amp; Process + Leadership</h4>
+        <div class="location-label">1420 S Ocean &amp; 300 N Lakeway</div>
+        <ul>
+          <li>Construction B-roll</li>
+          <li>Drone coverage</li>
+          <li>Principal interview</li>
+          <li>Team / leadership shots</li>
+        </ul>
+      </div>
+
+      <div class="schedule-day reveal stagger-2">
+        <div class="day-number">Day 02</div>
+        <h4>Finished Product — Batch 1</h4>
+        <div class="location-label">2–3 Completed Properties</div>
+        <ul>
+          <li>Cinematic walkthroughs</li>
+          <li>Hero photography</li>
+          <li>Detail series</li>
+          <li>Drone coverage</li>
+          <li>Lifestyle content</li>
+        </ul>
+      </div>
+
+      <div class="schedule-day reveal stagger-3">
+        <div class="day-number">Day 03</div>
+        <h4>Finished Product — Batch 2 + Blue Hour</h4>
+        <div class="location-label">Remaining Properties</div>
+        <ul>
+          <li>Walkthroughs</li>
+          <li>Photography</li>
+          <li>Lifestyle content</li>
+          <li>Dusk / blue hour exteriors</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="reveal" style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: var(--spacing-md); text-align: center;">
+      Post-production: 2–3 weeks following final shoot day.
+    </p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     INVESTMENT
+     ============================================ -->
+<section id="investment">
+  <div class="container">
+    <div class="deliverable-header reveal" style="text-align: center; margin-bottom: var(--spacing-lg);">
+      <span class="section-number" style="justify-content: center;">Investment</span>
+      <h2>Your Investment</h2>
+    </div>
+
+    <div class="investment-section reveal stagger-1">
+      <div class="investment-total">
+        <p class="total-label">Total Investment</p>
+        <p class="total-amount">$19,000</p>
+      </div>
+
+      <div class="line-items">
+        <div class="line-item">
+          <span class="item-name">Video Production &amp; Capture <span style="color: var(--text-muted); font-size: 0.85rem;">— 3 shoot days across 7 locations</span></span>
+          <span class="item-price">$8,000</span>
+        </div>
+        <div class="line-item">
+          <span class="item-name">Video Post-Production <span style="color: var(--text-muted); font-size: 0.85rem;">— all edits</span></span>
+          <span class="item-price">$2,500</span>
+        </div>
+        <div class="line-item">
+          <span class="item-name">Pre-Production &amp; Creative Direction</span>
+          <span class="item-price">$500</span>
+        </div>
+        <div class="line-item">
+          <span class="item-name">Photography Capture + Edit <span style="color: var(--text-muted); font-size: 0.85rem;">— minimum 100 edited photos</span></span>
+          <span class="item-price">$7,000</span>
+        </div>
+        <div class="line-item">
+          <span class="item-name">Drone Coverage <span style="color: var(--text-muted); font-size: 0.85rem;">— all 7 locations</span></span>
+          <span class="item-price">$1,000</span>
+        </div>
+      </div>
+
+      <div class="bonus-note">
+        &#10023;&ensp;Bonus Content Library included at no additional cost
+      </div>
+
+      <h4 style="text-align: center; margin-bottom: var(--spacing-md); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em;">Payment Schedule</h4>
+      <div class="payment-schedule">
+        <div class="payment-card">
+          <p class="payment-label">Deposit</p>
+          <p class="payment-amount">$7,600</p>
+          <p class="payment-percent">40%</p>
+          <p class="payment-timing">Due upon booking</p>
+        </div>
+        <div class="payment-card">
+          <p class="payment-label">Mid-Sprint</p>
+          <p class="payment-amount">$5,700</p>
+          <p class="payment-percent">30%</p>
+          <p class="payment-timing">Due after Day 2</p>
+        </div>
+        <div class="payment-card">
+          <p class="payment-label">Final Delivery</p>
+          <p class="payment-amount">$5,700</p>
+          <p class="payment-percent">30%</p>
+          <p class="payment-timing">Due upon delivery</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     OPTIONAL ADD-ON
+     ============================================ -->
+<section id="addon">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <span class="section-number">Optional Add-On</span>
+      <h2>Team Headshots</h2>
+    </div>
+
+    <div class="addon-card reveal stagger-1">
+      <div class="addon-info">
+        <h3>Half-Day Portrait Session</h3>
+        <p>Dedicated portrait session with full lighting setup and creative direction for the entire Sciame team.</p>
+      </div>
+      <div class="addon-price">$1,000</div>
+    </div>
+
+    <p class="addon-note reveal stagger-2">
+      We recommend testing branded logo elements in post-production before committing to a full team shoot — allowing you to dial in the creative direction first.
+    </p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     NEXT STEPS / CTA
+     ============================================ -->
+<section class="cta-section" id="next-steps">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-number" style="justify-content: center;">Next Steps</span>
+      <h2>Let's Build Something Remarkable</h2>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card reveal stagger-1">
+        <div class="step-number">01</div>
+        <h4>Confirm priority locations</h4>
+      </div>
+      <div class="step-card reveal stagger-2">
+        <div class="step-number">02</div>
+        <h4>Schedule discovery session</h4>
+      </div>
+      <div class="step-card reveal stagger-3">
+        <div class="step-number">03</div>
+        <h4>Lock shoot dates</h4>
+      </div>
+      <div class="step-card reveal stagger-4">
+        <div class="step-number">04</div>
+        <h4>Deposit to reserve sprint dates</h4>
+      </div>
+    </div>
+
+    <div class="reveal stagger-5">
+      <button class="cta-button">
+        Reserve Your Sprint
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer>
+  <div class="footer-line"></div>
+  <p>Prepared by WorldClass Creative &times; Trevor Melton Photography</p>
+</footer>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // --- Scroll Progress Bar ---
+  const progressBar = document.getElementById('progressBar');
+
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+
+  // --- Sticky Nav (appears after scrolling past hero) ---
+  const nav = document.getElementById('mainNav');
+  const hero = document.querySelector('.hero');
+
+  function updateNav() {
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    if (window.scrollY > heroBottom * 0.6) {
+      nav.classList.add('visible');
+    } else {
+      nav.classList.remove('visible');
+    }
+  }
+
+  // --- Mobile Nav Toggle ---
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', function() {
+    navLinks.classList.toggle('open');
+  });
+
+  // Close mobile nav on link click
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // --- Reveal on Scroll (Intersection Observer) ---
+  const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+  const revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  revealElements.forEach(function(el) {
+    revealObserver.observe(el);
+  });
+
+  // --- Section Dots & Active Nav Links ---
+  const sections = document.querySelectorAll('section[id]');
+  const dots = document.querySelectorAll('.section-dots .dot');
+  const navAnchors = document.querySelectorAll('.nav-links a');
+
+  function updateActiveSection() {
+    let current = '';
+    sections.forEach(function(section) {
+      const sectionTop = section.offsetTop - 200;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    dots.forEach(function(dot) {
+      dot.classList.toggle('active', dot.dataset.section === current);
+    });
+
+    navAnchors.forEach(function(anchor) {
+      const href = anchor.getAttribute('href').substring(1);
+      anchor.classList.toggle('active', href === current);
+    });
+  }
+
+  // Dot click navigation
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      const target = document.getElementById(dot.dataset.section);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // --- Throttled Scroll Handler ---
+  let ticking = false;
+
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        updateProgress();
+        updateNav();
+        updateActiveSection();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Initial calls
+  updateProgress();
+  updateNav();
+  updateActiveSection();
+})();
+</script>
+
+</body>
+</html>
