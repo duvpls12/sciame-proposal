@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Conditions — Sciame Homes Content Sprint</title>
+<style>
+:root {
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #161616;
+  --bg-card: #1a1a1a;
+  --text-primary: #f5f0eb;
+  --text-secondary: #a09a93;
+  --text-muted: #6b6560;
+  --accent: #c9a96e;
+  --accent-dim: rgba(201, 169, 110, 0.15);
+  --border: rgba(201, 169, 110, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--text-primary); }
+
+/* Nav */
+.nav {
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(13, 13, 13, 0.95);
+  backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+}
+
+.nav a {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: all var(--transition);
+}
+
+.nav a:hover {
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* Content */
+.container {
+  max-width: 800px;
+  margin-inline: auto;
+  padding: 4rem 2rem 6rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.page-header p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Sections */
+.terms-section {
+  margin-bottom: 2.5rem;
+}
+
+.terms-section h2 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.terms-section h2 .num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.terms-section h3 {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.terms-section p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+  max-width: none;
+}
+
+.terms-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-subtle);
+  margin-bottom: 2.5rem;
+}
+
+/* CTA at bottom */
+.terms-cta {
+  text-align: center;
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+.terms-cta p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.cta-button:hover {
+  background: #d4b87a;
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(201, 169, 110, 0.3);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+footer p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  max-width: none;
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">Sciame Homes</div>
+  <a href="index.html">&larr; Back to Proposal</a>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <p class="eyebrow">Sciame Homes Content Sprint</p>
+    <h1>Terms &amp; Conditions</h1>
+    <p>WorldClass Creative &times; Trevor Melton Photography</p>
+  </div>
+
+  <div class="terms-section">
+    <h2><span class="num">01</span> Payment Schedule</h2>
+    <p>This engagement is structured as a three-installment payment:</p>
+    <p><strong>Deposit:</strong> $7,600 (40%) — Due upon signing to reserve shoot dates.</p>
+    <p><strong>Mid-Sprint:</strong> $5,700 (30%) — Due upon completion of Day 2 of production.</p>
+    <p><strong>Final Delivery:</strong> $5,700 (30%) — Due upon delivery of completed deliverable package.</p>
+    <p>Shoot dates will be held for a period of seven (7) business days following the date of this proposal. If the deposit is not received within that window, dates may be released and rescheduled based on availability. No media will be delivered until all payments are received in full.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">02</span> License Grant &amp; Media Usage</h2>
+    <p>Upon receipt of full payment, WorldClass Creative and Trevor Melton Photography (collectively, "the Company") grant Sciame Homes ("Client") a broad, non-exclusive, transferable license to use all delivered media (photographs, video content, and related materials) for the following purposes:</p>
+    <p>Marketing, promotion, and representation of Sciame Homes and its brand across all owned and operated channels including but not limited to: website, social media platforms, email marketing, printed collateral, digital advertising, client presentations, recruitment materials, and press outreach.</p>
+    <p>Media may be resized, cropped, or reformatted as needed for platform-specific requirements (e.g., aspect ratio adjustments for Instagram Stories or LinkedIn posts), provided such adjustments do not materially alter the creative intent of the original work.</p>
+    <p>This license does not constitute a transfer of ownership or copyright. All intellectual property rights in the delivered media remain with the Company unless a Full Rights Buyout is exercised (see Section 3). Client may not sublicense, resell, distribute, or make available any delivered media to third parties for commercial resale or inclusion in stock media libraries.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">03</span> Full Rights Buyout (Optional)</h2>
+    <p>Client may acquire full, exclusive ownership of all delivered media — including transfer of copyright — for an additional fee of 50% of the total engagement cost ($9,500). Upon payment of the buyout fee, the Company will execute a formal assignment of all intellectual property rights to the Client.</p>
+    <p>The buyout option must be exercised in writing within ninety (90) days of final delivery. If not exercised within that window, the license terms in Section 2 will remain in effect indefinitely.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">04</span> Content Modification &amp; Integrity</h2>
+    <p>Client may not alter, edit, re-cut, apply filters to, or otherwise modify any delivered media beyond the platform-specific reformatting described in Section 2. This includes but is not limited to: color grading changes, cropping that removes watermarks or credits, audio replacement, re-editing of video sequences, or any alteration that changes the narrative, tone, or visual integrity of the original work.</p>
+    <p>Client is specifically prohibited from using any generative AI tools, machine learning models, or automated editing software to modify, enhance, extend, restyle, or otherwise alter any delivered media. This includes but is not limited to tools such as generative fill, AI-based sky replacement, style transfer, face manipulation, voice cloning, video extension, or any AI-assisted editing that modifies the original content in any way.</p>
+    <p>If Client requires modifications to any delivered media, requests should be submitted to the Company as a revision request (see Section 11).</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">05</span> Portfolio &amp; Marketing Rights</h2>
+    <p>WorldClass Creative and Trevor Melton Photography retain the right to use all produced media for portfolio, marketing, educational, and promotional purposes, including but not limited to: website portfolios, social media channels, case studies, awards submissions, industry publications, and speaking engagements.</p>
+    <p>If a Full Rights Buyout is exercised, the Company's portfolio and marketing usage rights will be limited to non-commercial portfolio display only (e.g., website gallery, awards submissions) and will not include active advertising or paid promotion featuring Client's properties or brand.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">06</span> Property Readiness</h2>
+    <p>Client warrants that all properties shall be fully prepared and accessible upon the Company's arrival on each scheduled shoot day. "Fully prepared" means: interiors staged or show-ready, exteriors landscaped and free of construction materials, all lighting functional, HVAC operational, and no active construction activity in designated filming areas.</p>
+    <p>If a property is not ready upon arrival, the Company will make reasonable efforts to accommodate within the day's schedule. However, if a property requires a return visit due to unreadiness, additional travel and production fees may apply at the Company's standard day rate.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">07</span> Scheduling &amp; Cancellation</h2>
+    <p>Client may reschedule a shoot day with no penalty if written notice is provided at least seventy-two (72) hours prior to the scheduled date. Rescheduled dates are subject to availability.</p>
+    <p>If Client cancels or reschedules a shoot day with fewer than seventy-two (72) hours' notice, a cancellation fee equal to 25% of the day's allocated production value will be charged and deducted from future payments or invoiced separately.</p>
+    <p>If Client cancels the entire engagement after post-production has begun, no refund will be issued for work already completed or in progress. If Client cancels prior to the first shoot day, the deposit will be forfeited but may be applied as a credit toward a future engagement within twelve (12) months.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">08</span> Weather Policy</h2>
+    <p>The Company will contact Client approximately one (1) hour prior to departure to confirm weather conditions. If conditions are unsuitable for production (e.g., heavy rain, dangerous wind, severe weather advisories), the shoot will be rescheduled at no additional cost.</p>
+    <p>If the Client confirms the shoot despite marginal weather conditions and subsequently requests cancellation on-site, the standard cancellation fee (25% of the day's allocated value) will apply.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">09</span> Aerial Photography &amp; Videography</h2>
+    <p>All aerial (drone) operations will be conducted in compliance with Federal Aviation Administration (FAA) Part 107 regulations and any applicable local ordinances. The Company holds all required certifications and insurance for commercial drone operations.</p>
+    <p>If aerial operations cannot be performed at a scheduled location due to airspace restrictions (e.g., TFR, NOTAMs, restricted zones), no refund or credit will be issued for the drone line item. The Company will make reasonable efforts to capture aerial content at alternate approved locations within the project scope.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">10</span> Delivery Timeline</h2>
+    <p>The complete deliverable package will be delivered within two to three (2–3) weeks following the final shoot day, provided Client has submitted any required feedback or approvals in a timely manner.</p>
+    <p>Delivery timelines may be extended if Client delays in providing feedback, scheduling access, or fulfilling payment obligations. The Company will communicate any anticipated delays promptly.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">11</span> Revisions</h2>
+    <p>One (1) round of revisions is included per deliverable. Additional revision rounds are available at $150 per hour, billed in 30-minute increments.</p>
+    <p>Revision requests must be submitted in writing within fourteen (14) days of initial delivery. Requests received after this window may be accommodated but are not guaranteed.</p>
+    <p>A "revision" is defined as a modification to the existing deliverable within the original creative scope. Requests that materially change the scope, format, or creative direction of a deliverable (e.g., requesting a completely new edit from existing footage) will be treated as new work and quoted separately.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">12</span> No Refunds / Credit Policy</h2>
+    <p>All payments are non-refundable once production has begun. In the event of a dispute, the Company will make good-faith efforts to resolve the matter, which may include re-editing, reshooting (schedule permitting), or issuing a partial credit toward future services.</p>
+    <p>Credit card processing fees (typically 2.9% + $0.30) are non-recoverable and will not be refunded even if a credit is issued.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">13</span> Artificial Intelligence</h2>
+    <h3>A. Client Restrictions on AI Use</h3>
+    <p>Client may not use any delivered media to create AI-generated likenesses, voice clones, deepfakes, or synthetic media of any kind. Client may not use delivered media to train, fine-tune, or otherwise contribute to any machine learning model, neural network, or AI system without express written consent from the Company.</p>
+    <h3>B. AI Modification Prohibition</h3>
+    <p>As outlined in Section 4, Client is prohibited from using any generative AI tools to modify, enhance, extend, restyle, or otherwise alter delivered media. This prohibition applies to all current and future AI technologies.</p>
+    <h3>C. Company Use of AI</h3>
+    <p>Client acknowledges that WorldClass Creative and Trevor Melton Photography may utilize generative AI tools as part of the creative and post-production workflow. This may include but is not limited to: AI-assisted color grading, noise reduction, image enhancement, sky replacement, audio cleanup, and automated editing tools. The Company's use of AI tools does not diminish the value or originality of the delivered work.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">14</span> Prohibited Use</h2>
+    <p>Client shall not use any delivered media in connection with services or platforms that violate a platform's Terms of Service, including but not limited to: bot engagement services, purchased followers or likes, fake review generation, or any deceptive marketing practices.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">15</span> Scope Modifications &amp; Ethical Standards</h2>
+    <p>WorldClass Creative and Trevor Melton Photography reserve the right to modify the scope of any project and adjust delivered media to fit within the Company's code of ethics and all applicable local, state, and federal laws. If a scope modification is required, the Company will notify Client in writing and provide a revised timeline and/or quote as applicable.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">16</span> Limitation of Liability</h2>
+    <p>The Company's aggregate liability for any and all claims arising out of or related to this engagement shall not exceed the total fees paid by Client under this agreement. In no event shall the Company be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of revenue, loss of profits, loss of business, or loss of data.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">17</span> Indemnification</h2>
+    <p>Client agrees to indemnify, defend, and hold harmless the Company, its principals, employees, and contractors from and against any and all claims, damages, losses, liabilities, and expenses (including reasonable attorneys' fees) arising out of or related to: Client's breach of these terms, unauthorized use or modification of delivered media, or any third-party claim resulting from Client's use or application of the delivered media.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">18</span> Force Majeure</h2>
+    <p>Neither party shall be held liable for any failure or delay in performance due to causes beyond their reasonable control, including but not limited to: natural disasters, pandemics, government orders, civil unrest, power outages, or internet service failures. In the event of a force majeure, the affected party will notify the other party promptly, and the engagement will be rescheduled or credited at the Company's discretion.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">19</span> Confidentiality</h2>
+    <p>Both parties agree to maintain the confidentiality of any non-public information shared during this engagement, including but not limited to: pricing, property details, client lists, marketing strategies, and proprietary business information. Neither party will disclose such information to third parties without prior written consent.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">20</span> Governing Law &amp; Dispute Resolution</h2>
+    <p>This agreement shall be governed by and construed in accordance with the laws of the State of Florida, without regard to conflict of law principles. Any dispute arising under this agreement shall be resolved through binding arbitration in Palm Beach County, Florida, administered under the rules of JAMS (Judicial Arbitration and Mediation Services). The prevailing party shall be entitled to recover reasonable attorneys' fees and costs.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">21</span> Severability</h2>
+    <p>If any provision of these terms is found to be unenforceable or invalid by a court of competent jurisdiction, that provision will be limited or eliminated to the minimum extent necessary, and the remaining provisions will continue in full force and effect.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">22</span> Notice</h2>
+    <p>All legal notices required or permitted under this agreement must be sent via certified mail and email to: legal@worldclasscreative.com. Notices to Client will be sent to the email address provided at the time of signing.</p>
+  </div>
+  <div class="terms-divider"></div>
+
+  <div class="terms-section">
+    <h2><span class="num">23</span> Entire Agreement &amp; Acceptance</h2>
+    <p>These Purchase Terms, together with the Sciame Homes Content Sprint Proposal, constitute the entire agreement between the parties and supersede all prior or contemporaneous communications, representations, or agreements, whether oral or written. By signing the associated quote or remitting payment, Client acknowledges that they have read, understood, and agreed to be bound by these terms.</p>
+  </div>
+
+  <div class="terms-cta">
+    <p>Ready to move forward?</p>
+    <a href="https://241972392.hs-sites-na2.com/guS1wCXqcBJ5NqFxOn" target="_blank" rel="noopener" class="cta-button">Review &amp; Sign Quote</a>
+  </div>
+</div>
+
+<footer>
+  <p>WorldClass Creative &times; Trevor Melton Photography</p>
+</footer>
+
+</body>
+</html>
