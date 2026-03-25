@@ -826,6 +826,34 @@ section {
   margin-bottom: var(--spacing-sm);
 }
 
+.updated-badge, .new-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-left: 0.75rem;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
+
+.updated-badge {
+  background: rgba(110, 169, 201, 0.12);
+  border: 1px solid rgba(110, 169, 201, 0.5);
+  color: #6ea9c9;
+}
+
+.new-badge {
+  background: rgba(110, 201, 140, 0.12);
+  border: 1px solid rgba(110, 201, 140, 0.5);
+  color: #6ec98c;
+}
+
 .bonus-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1588,7 +1616,7 @@ footer .footer-line {
   <div class="container">
     <div class="deliverable-header reveal">
       <span class="section-number">Deliverable 01</span>
-      <h2>Property Spotlight Reels &times;3</h2>
+      <h2>Property Spotlight Reels &times;3 <span class="updated-badge">Updated</span></h2>
       <p class="deliverable-description">
         30–60 second cinematic Reels per completed property. Hero showcase content for every finished Sciame project — portfolio-grade pieces that live on the website, social channels, and presentations.
       </p>
@@ -1759,7 +1787,7 @@ footer .footer-line {
   <div class="container">
     <div class="deliverable-header reveal">
       <span class="section-number">Deliverable 04</span>
-      <h2>Principal Interview &amp; Soundbite Library</h2>
+      <h2>Principal Interview &amp; Soundbite Library <span class="updated-badge">Updated</span></h2>
       <p class="deliverable-description">
         1 full sit-down interview (2–3 minutes) + 4 extracted short clips. Put a face and voice to the Sciame Homes brand.
       </p>
@@ -1835,7 +1863,7 @@ footer .footer-line {
   <div class="container">
     <div class="deliverable-header reveal">
       <span class="section-number">Deliverable 04b</span>
-      <h2>Partner &amp; Peer Interviews</h2>
+      <h2>Partner &amp; Peer Interviews <span class="new-badge">New</span></h2>
       <p class="deliverable-description">
         On-site sit-down interviews with Sciame's partners and peers, highlighting the importance and strength of key relationships. Same production quality as the principal interview — full lighting, audio, and directed conversation. Light interview prep provided to each participant in advance.
       </p>
@@ -1870,7 +1898,7 @@ footer .footer-line {
   <div class="container">
     <div class="deliverable-header reveal">
       <span class="section-number">Deliverable 05</span>
-      <h2>Photography Content Bank</h2>
+      <h2>Photography Content Bank <span class="updated-badge">Updated</span></h2>
       <p class="deliverable-description">
         Minimum 100 edited photographs across all locations. A comprehensive visual library organized by content use — ready for website, social, presentations, and press.
       </p>
@@ -2001,7 +2029,7 @@ footer .footer-line {
   <div class="container">
     <div class="deliverable-header reveal">
       <span class="section-number">Locations</span>
-      <h2>Project Locations</h2>
+      <h2>Project Locations <span class="updated-badge">Updated</span></h2>
     </div>
 
     <div class="locations-grid reveal stagger-1">
@@ -2069,7 +2097,7 @@ footer .footer-line {
   <div class="container">
     <div class="deliverable-header reveal">
       <span class="section-number">Schedule</span>
-      <h2>3-Day Shoot Schedule</h2>
+      <h2>3-Day Shoot Schedule <span class="updated-badge">Updated</span></h2>
     </div>
 
     <div class="schedule-timeline">
@@ -2126,7 +2154,7 @@ footer .footer-line {
   <div class="container">
     <div class="deliverable-header reveal" style="margin-bottom: var(--spacing-lg);">
       <span class="section-number">Investment</span>
-      <h2>Your Investment</h2>
+      <h2>Your Investment <span class="updated-badge">Updated</span></h2>
     </div>
 
     <div class="investment-section reveal stagger-1">
@@ -2196,7 +2224,7 @@ footer .footer-line {
   <div class="container">
     <div class="deliverable-header reveal">
       <span class="section-number">Optional Add-Ons</span>
-      <h2>Add-On Services</h2>
+      <h2>Add-On Services <span class="updated-badge">Updated</span></h2>
     </div>
 
     <div class="addon-card reveal stagger-1">
@@ -2324,7 +2352,7 @@ footer .footer-line {
   <div class="container">
     <div class="deliverable-header reveal">
       <span class="section-number">Summary</span>
-      <h2>Deliverable Summary</h2>
+      <h2>Deliverable Summary <span class="new-badge">New</span></h2>
     </div>
 
     <div class="styled-table-wrapper reveal stagger-1">
