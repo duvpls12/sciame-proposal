@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sciame Homes — Video Deliverables</title>
+<style>
+:root {
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #161616;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222;
+  --text-primary: #f5f0eb;
+  --text-secondary: #a09a93;
+  --text-muted: #6b6560;
+  --accent: #c9a96e;
+  --accent-dim: rgba(201, 169, 110, 0.15);
+  --accent-glow: rgba(201, 169, 110, 0.08);
+  --border: rgba(201, 169, 110, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+  --spacing-2xl: 8rem;
+  --max-width: 1200px;
+  --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--text-primary); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 3rem); color: var(--text-primary); }
+h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); color: var(--text-primary); }
+h4 { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--accent); }
+
+p {
+  max-width: 70ch;
+  margin-inline: auto;
+  color: var(--text-secondary);
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--spacing-md);
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), #e0c88a);
+  z-index: 1000;
+  transition: width 0.1s linear;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.portal-header {
+  padding: var(--spacing-xl) 0 var(--spacing-lg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.portal-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(201, 169, 110, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(201, 169, 110, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.portal-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to top, var(--bg-primary), transparent);
+  pointer-events: none;
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
+.header-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0;
+  animation: fadeUp 1s 0.1s forwards;
+}
+
+.header-logos img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.85;
+  filter: brightness(1.1);
+}
+
+.header-logos .logo-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255,255,255,0.15);
+}
+
+.portal-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-bottom: var(--spacing-md);
+  opacity: 0;
+  animation: fadeUp 1s 0.2s forwards;
+}
+
+.portal-header h1 {
+  margin-bottom: var(--spacing-sm);
+  opacity: 0;
+  animation: fadeUp 1s 0.4s forwards;
+}
+
+.portal-header h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.portal-subtitle {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  color: var(--text-secondary);
+  opacity: 0;
+  animation: fadeUp 1s 0.6s forwards;
+}
+
+/* ============================================
+   SECTION STYLES
+   ============================================ */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
+  opacity: 0.2;
+  margin-block: 0;
+}
+
+.section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: var(--spacing-sm);
+  width: 100%;
+}
+
+.section-number::before {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background: var(--accent);
+}
+
+section {
+  padding-block: var(--spacing-xl);
+  position: relative;
+}
+
+.deliverable-header {
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.deliverable-header h2 {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ============================================
+   STATUS BADGE
+   ============================================ */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 1rem;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--spacing-sm);
+}
+
+.status-badge.delivered {
+  background: rgba(110, 201, 140, 0.12);
+  border: 1px solid rgba(110, 201, 140, 0.4);
+  color: #6ec98c;
+}
+
+.status-badge.delivered::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #6ec98c;
+}
+
+.status-badge.pending {
+  background: rgba(201, 169, 110, 0.12);
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  color: var(--accent);
+}
+
+.status-badge.pending::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ============================================
+   VIDEO PLAYER
+   ============================================ */
+.video-player-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 960px;
+  margin-inline: auto;
+  margin-bottom: var(--spacing-md);
+}
+
+.video-player-card .embed-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  background: #000;
+}
+
+.video-player-card .embed-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-meta {
+  padding: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.video-meta-left h3 {
+  margin-bottom: 0.25rem;
+}
+
+.video-meta-left .property-type {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.6rem;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  transition: all var(--transition);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.download-btn:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+.download-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============================================
+   DELIVERABLES LIST
+   ============================================ */
+.deliverables-grid {
+  display: grid;
+  gap: var(--spacing-sm);
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+.deliverable-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  transition: all var(--transition);
+  gap: var(--spacing-sm);
+}
+
+.deliverable-row:hover {
+  border-color: var(--border);
+  background: var(--bg-card-hover);
+}
+
+.deliverable-row .row-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.deliverable-row .row-number {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  min-width: 1.5rem;
+}
+
+.deliverable-row .row-name {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.deliverable-row .row-type {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+}
+
+.row-status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.row-status.done {
+  background: rgba(110, 201, 140, 0.1);
+  color: #6ec98c;
+  border: 1px solid rgba(110, 201, 140, 0.25);
+}
+
+.row-status.upcoming {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  text-align: center;
+  padding: var(--spacing-lg) var(--spacing-md);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.footer-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-logos img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: brightness(1.1);
+  transition: opacity var(--transition);
+}
+
+.footer-logos img:hover { opacity: 0.8; }
+
+.footer-line {
+  width: 60px;
+  height: 1px;
+  background: var(--accent);
+  margin: var(--spacing-sm) auto;
+  opacity: 0.3;
+}
+
+footer p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   REVEAL ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .header-logos {
+    gap: 1.5rem;
+  }
+
+  .header-logos img {
+    height: 28px;
+  }
+
+  .video-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .download-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .deliverable-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .deliverable-row .row-left {
+    width: 100%;
+  }
+
+  .row-status {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logos {
+    gap: 1rem;
+  }
+
+  .header-logos img {
+    height: 22px;
+  }
+
+  .header-logos .logo-divider {
+    height: 20px;
+  }
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ============================================
+     HEADER
+     ============================================ -->
+<header class="portal-header">
+  <div class="header-content container">
+    <div class="header-logos">
+      <img src="assets/sciame-logo.webp" alt="Sciame Homes logo">
+      <div class="logo-divider"></div>
+      <img src="assets/trevor-logo.webp" alt="Trevor Melton Photography logo">
+      <div class="logo-divider"></div>
+      <img src="assets/wcc-logo.webp" alt="WorldClass Creative logo">
+    </div>
+    <p class="portal-eyebrow">Client Delivery Portal</p>
+    <h1>Video <em>Deliverables</em></h1>
+    <p class="portal-subtitle">Sciame Homes &mdash; Content Sprint</p>
+  </div>
+</header>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     FEATURED — 200 ALGOMA WAY
+     ============================================ -->
+<section id="algoma">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <div class="status-badge delivered">Delivered</div>
+      <span class="section-number">Property Spotlight Reel</span>
+      <h2>200 Algoma Way</h2>
+    </div>
+
+    <div class="video-player-card reveal stagger-1">
+      <div class="embed-wrapper">
+        <iframe src="https://player.vimeo.com/video/1187858347?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="200 Algoma Way"></iframe>
+      </div>
+      <div class="video-meta">
+        <div class="video-meta-left">
+          <h3>200 Algoma Way</h3>
+          <span class="property-type">Property Spotlight Reel &mdash; Photo + Video</span>
+        </div>
+        <a href="https://www.dropbox.com/scl/fi/7kf7bxy9mm2v6ze5k2pxi/200-Algoma-Way.mp4?rlkey=5flrj5z7njfdj0ojamsvunzvo&dl=0" target="_blank" rel="noopener" class="download-btn">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download MP4
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     ALL DELIVERABLES TRACKER
+     ============================================ -->
+<section id="tracker">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <span class="section-number">Delivery Tracker</span>
+      <h2>All Video Deliverables</h2>
+    </div>
+
+    <div class="deliverables-grid">
+      <h4 class="reveal" style="margin-bottom: 0.5rem;">Property Spotlight Reels</h4>
+
+      <div class="deliverable-row reveal stagger-1">
+        <div class="row-left">
+          <span class="row-number">01</span>
+          <span class="row-name">200 Algoma Way</span>
+          <span class="row-type">Photo + Video</span>
+        </div>
+        <span class="row-status done">Delivered</span>
+      </div>
+
+      <div class="deliverable-row reveal stagger-2">
+        <div class="row-left">
+          <span class="row-number">02</span>
+          <span class="row-name">120 Dunbar</span>
+          <span class="row-type">Video Only</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <div class="deliverable-row reveal stagger-3">
+        <div class="row-left">
+          <span class="row-number">03</span>
+          <span class="row-name">267 Dunbar</span>
+          <span class="row-type">Video Only</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <h4 class="reveal" style="margin-top: var(--spacing-md); margin-bottom: 0.5rem;">Lifestyle Reels</h4>
+
+      <div class="deliverable-row reveal stagger-1">
+        <div class="row-left">
+          <span class="row-number">04</span>
+          <span class="row-name">Waterfront Living</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <div class="deliverable-row reveal stagger-2">
+        <div class="row-left">
+          <span class="row-number">05</span>
+          <span class="row-name">Indoor/Outdoor Entertaining</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <div class="deliverable-row reveal stagger-3">
+        <div class="row-left">
+          <span class="row-number">06</span>
+          <span class="row-name">Morning Light Interior</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <h4 class="reveal" style="margin-top: var(--spacing-md); margin-bottom: 0.5rem;">Craft &amp; Process Series</h4>
+
+      <div class="deliverable-row reveal stagger-1">
+        <div class="row-left">
+          <span class="row-number">07</span>
+          <span class="row-name">Craft &amp; Process Reel 1</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <div class="deliverable-row reveal stagger-2">
+        <div class="row-left">
+          <span class="row-number">08</span>
+          <span class="row-name">Craft &amp; Process Reel 2</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <h4 class="reveal" style="margin-top: var(--spacing-md); margin-bottom: 0.5rem;">Principal Interview</h4>
+
+      <div class="deliverable-row reveal stagger-1">
+        <div class="row-left">
+          <span class="row-number">09</span>
+          <span class="row-name">Full Interview</span>
+          <span class="row-type">2–3 min</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <div class="deliverable-row reveal stagger-2">
+        <div class="row-left">
+          <span class="row-number">10</span>
+          <span class="row-name">Philosophy Soundbite</span>
+          <span class="row-type">15–30 sec</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <div class="deliverable-row reveal stagger-3">
+        <div class="row-left">
+          <span class="row-number">11</span>
+          <span class="row-name">"Why We're Different" Clip</span>
+          <span class="row-type">15–30 sec</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <div class="deliverable-row reveal stagger-4">
+        <div class="row-left">
+          <span class="row-number">12</span>
+          <span class="row-name">Process / Craft Quote</span>
+          <span class="row-type">15–30 sec</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <div class="deliverable-row reveal stagger-1">
+        <div class="row-left">
+          <span class="row-number">13</span>
+          <span class="row-name">Future Vision Clip</span>
+          <span class="row-type">15–30 sec</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+
+      <h4 class="reveal" style="margin-top: var(--spacing-md); margin-bottom: 0.5rem;">Partner/Peer Interview</h4>
+
+      <div class="deliverable-row reveal stagger-1">
+        <div class="row-left">
+          <span class="row-number">14</span>
+          <span class="row-name">Partner/Peer Interview</span>
+        </div>
+        <span class="row-status upcoming">Upcoming</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer>
+  <div class="footer-logos">
+    <img src="assets/wcc-logo.webp" alt="WorldClass Creative logo">
+    <img src="assets/trevor-logo.webp" alt="Trevor Melton Photography logo">
+  </div>
+  <div class="footer-line"></div>
+  <p>Prepared by WorldClass Creative &times; Trevor Melton Photography</p>
+</footer>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+(function() {
+  'use strict';
+
+  var progressBar = document.getElementById('progressBar');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+
+  var revealElements = document.querySelectorAll('.reveal');
+
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  revealElements.forEach(function(el) {
+    revealObserver.observe(el);
+  });
+
+  var ticking = false;
+
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        updateProgress();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
