@@ -301,6 +301,65 @@ section {
   border: 0;
 }
 
+.video-player-card .poster-link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 56.25%;
+  background:
+    radial-gradient(ellipse at center, rgba(201, 169, 110, 0.08) 0%, transparent 70%),
+    #000;
+  overflow: hidden;
+}
+
+.video-player-card .poster-play,
+.video-player-card .poster-caption {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.video-player-card .poster-play {
+  top: calc(50% - 1.75rem);
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  transition: all var(--transition);
+}
+
+.video-player-card .poster-play svg {
+  width: 26px;
+  height: 26px;
+  fill: var(--accent);
+  margin-left: 4px;
+  transition: fill var(--transition);
+}
+
+.video-player-card .poster-caption {
+  top: calc(50% + 2.25rem);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.video-player-card .poster-link:hover .poster-play {
+  background: var(--accent);
+}
+
+.video-player-card .poster-link:hover .poster-play svg {
+  fill: var(--bg-primary);
+}
+
 .video-meta {
   padding: var(--spacing-md);
   display: flex;
@@ -830,6 +889,44 @@ footer p {
 <div class="section-divider"></div>
 
 <!-- ============================================
+     FEATURED — PHILOSOPHY SOUNDBITE
+     ============================================ -->
+<section id="philosophy">
+  <div class="container">
+    <div class="deliverable-header reveal">
+      <div class="status-badge delivered">Delivered</div>
+      <span class="section-number">Principal Interview Clip</span>
+      <h2>Sciame — Philosophy</h2>
+    </div>
+
+    <div class="video-player-card reveal stagger-1">
+      <a href="https://vimeo.com/share/21ad47c5-8fe1-4e41-bfb3-b0f35bdbef55" target="_blank" rel="noopener" class="poster-link">
+        <div class="poster-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
+        <span class="poster-caption">Watch on Vimeo</span>
+      </a>
+      <div class="video-meta">
+        <div class="video-meta-left">
+          <h3>Philosophy Soundbite</h3>
+          <span class="property-type">Principal Interview &mdash; 15–30 sec</span>
+        </div>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <a href="https://vimeo.com/share/21ad47c5-8fe1-4e41-bfb3-b0f35bdbef55" target="_blank" rel="noopener" class="download-btn" style="background: transparent;">
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="8,5 20,12 8,19"/></svg>
+            Watch on Vimeo
+          </a>
+          <a href="https://www.dropbox.com/scl/fi/y4jm4zqfe6l7xxwbqfcx1/Sciame-Philosophy.mp4?rlkey=ix25lg0aw0ejepbgyb0599zg0&dl=0" target="_blank" rel="noopener" class="download-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download MP4
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
      ALL DELIVERABLES TRACKER
      ============================================ -->
 <section id="tracker">
@@ -926,7 +1023,7 @@ footer p {
           <span class="row-name">Philosophy Soundbite</span>
           <span class="row-type">15–30 sec</span>
         </div>
-        <span class="row-status upcoming">Upcoming</span>
+        <span class="row-status done">Delivered</span>
       </div>
 
       <div class="deliverable-row reveal stagger-3">
