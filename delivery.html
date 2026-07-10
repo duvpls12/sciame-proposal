@@ -686,10 +686,10 @@ footer p {
   <div class="container toolbar-inner">
     <div class="filter-chips" id="filterChips"></div>
     <div class="toolbar-actions">
-      <button class="download-all-btn" id="downloadAllBtn" type="button">
+      <a class="download-all-btn" id="downloadAllBtn" href="https://www.dropbox.com/scl/fi/k8w2cwa6wghe24xkkhxwu/Archive.zip?rlkey=g1hs6bg0ngwwhbzhc7wiwjav8&dl=1" target="_blank" rel="noopener" download>
         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download All
-      </button>
+      </a>
     </div>
   </div>
 </div>
@@ -1029,30 +1029,7 @@ footer p {
     toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 4000);
   }
 
-  /* ---- Download All (respects active filter) ---- */
-  document.getElementById('downloadAllBtn').addEventListener('click', function() {
-    var active = chipsWrap.querySelector('.chip.active');
-    var cat = active ? active.getAttribute('data-cat') : 'All';
-    var list = ASSETS.filter(function(a) {
-      return (cat === 'All' || a.category === cat) && a.download;
-    });
-    if (!list.length) return;
-
-    showToast('Starting ' + list.length + ' download' + (list.length > 1 ? 's' : '') + '… allow multiple files if your browser asks.');
-
-    list.forEach(function(a, i) {
-      setTimeout(function() {
-        var link = document.createElement('a');
-        link.href = a.download;
-        link.setAttribute('download', '');
-        link.setAttribute('target', '_blank');
-        link.rel = 'noopener';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }, i * 700);
-    });
-  });
+  /* ---- Download All is a direct link to the full ZIP archive (see toolbar anchor) ---- */
 
   /* ---- Progress bar ---- */
   var progressBar = document.getElementById('progressBar');
