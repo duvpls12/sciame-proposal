@@ -66,12 +66,10 @@ h1, h2, h3, h4 {
 
 h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
 h2 { font-size: clamp(1.8rem, 4vw, 3rem); color: var(--text-primary); }
-h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); color: var(--text-primary); }
+h3 { font-size: clamp(1.05rem, 2vw, 1.25rem); color: var(--text-primary); }
 h4 { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--accent); }
 
 p {
-  max-width: 70ch;
-  margin-inline: auto;
   color: var(--text-secondary);
   font-size: clamp(0.95rem, 1.5vw, 1.05rem);
 }
@@ -110,17 +108,6 @@ p {
   background:
     radial-gradient(ellipse at 30% 20%, rgba(201, 169, 110, 0.04) 0%, transparent 60%),
     radial-gradient(ellipse at 70% 80%, rgba(201, 169, 110, 0.03) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.portal-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 120px;
-  background: linear-gradient(to top, var(--bg-primary), transparent);
   pointer-events: none;
 }
 
@@ -182,137 +169,320 @@ p {
   animation: fadeUp 1s 0.6s forwards;
 }
 
-/* ============================================
-   SECTION STYLES
-   ============================================ */
 .section-divider {
   width: 100%;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
   opacity: 0.2;
-  margin-block: 0;
-}
-
-.section-number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--accent);
-  margin-bottom: var(--spacing-sm);
-  width: 100%;
-}
-
-.section-number::before {
-  content: '';
-  display: block;
-  width: 2rem;
-  height: 1px;
-  background: var(--accent);
-}
-
-section {
-  padding-block: var(--spacing-xl);
-  position: relative;
-}
-
-.deliverable-header {
-  margin-bottom: var(--spacing-lg);
-  text-align: center;
-}
-
-.deliverable-header h2 {
-  margin-bottom: var(--spacing-sm);
 }
 
 /* ============================================
-   STATUS BADGE
+   GALLERY TOOLBAR
    ============================================ */
-.status-badge {
+.gallery-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: rgba(13, 13, 13, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.toolbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  padding-block: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  padding: 0.45rem 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.chip:hover {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.chip.active {
+  color: var(--bg-primary);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.chip .chip-count {
+  opacity: 0.6;
+  margin-left: 0.35rem;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.download-all-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 1rem;
+  gap: 0.55rem;
+  padding: 0.6rem 1.3rem;
+  background: var(--accent);
+  border: 1px solid var(--accent);
   border-radius: 100px;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: var(--spacing-sm);
+  color: var(--bg-primary);
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
 }
 
-.status-badge.delivered {
-  background: rgba(110, 201, 140, 0.12);
-  border: 1px solid rgba(110, 201, 140, 0.4);
-  color: #6ec98c;
+.download-all-btn:hover {
+  background: #e0c88a;
+  border-color: #e0c88a;
 }
 
-.status-badge.delivered::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #6ec98c;
-}
-
-.status-badge.pending {
-  background: rgba(201, 169, 110, 0.12);
-  border: 1px solid rgba(201, 169, 110, 0.4);
-  color: var(--accent);
-}
-
-.status-badge.pending::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
+.download-all-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* ============================================
-   VIDEO PLAYER
+   GALLERY GRID
    ============================================ */
-.video-player-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  max-width: 960px;
-  margin-inline: auto;
-  margin-bottom: var(--spacing-md);
+.gallery-section {
+  padding-block: var(--spacing-lg);
 }
 
-.video-player-card .embed-wrapper {
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.asset-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition), transform var(--transition), background var(--transition);
+}
+
+.asset-card:hover {
+  border-color: var(--border);
+  background: var(--bg-card-hover);
+  transform: translateY(-3px);
+}
+
+.asset-card.hidden { display: none; }
+
+.asset-media {
   position: relative;
   padding-bottom: 56.25%;
-  background: #000;
+  background:
+    radial-gradient(ellipse at center, rgba(201, 169, 110, 0.10) 0%, transparent 70%),
+    #000;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-.video-player-card .embed-wrapper iframe {
+.asset-media iframe {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
 }
 
+.asset-media .play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+
+.asset-media:hover .play-overlay {
+  background: rgba(201, 169, 110, 0.05);
+}
+
+.play-overlay .play-btn {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  transition: all var(--transition);
+}
+
+.asset-media:hover .play-btn {
+  background: var(--accent);
+}
+
+.play-overlay .play-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--accent);
+  margin-left: 3px;
+  transition: fill var(--transition);
+}
+
+.asset-media:hover .play-btn svg {
+  fill: var(--bg-primary);
+}
+
+.asset-media .media-tag {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  background: rgba(13, 13, 13, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  padding: 0.25rem 0.65rem;
+  z-index: 2;
+}
+
+.asset-body {
+  padding: 1.1rem 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.asset-cat {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.asset-body h3 {
+  margin-bottom: 0.15rem;
+}
+
+.asset-format {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.asset-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+
+.btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.btn-download {
+  flex: 1;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.btn-download:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+.btn-download svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.btn-watch {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.btn-watch:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-watch svg { fill: currentColor; }
+
+/* ============================================
+   BONUS FOLDER CARD
+   ============================================ */
 .folder-card {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  max-width: 720px;
-  margin-inline: auto;
   padding: 1.75rem;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
   flex-wrap: wrap;
   transition: all var(--transition);
+  margin-top: var(--spacing-md);
 }
 
 .folder-card:hover {
@@ -332,209 +502,64 @@ section {
   color: var(--accent);
 }
 
-.folder-card .folder-icon svg {
-  width: 30px;
-  height: 30px;
-}
+.folder-card .folder-icon svg { width: 30px; height: 30px; }
 
-.folder-card .folder-info {
-  flex: 1;
-  min-width: 180px;
-}
+.folder-card .folder-info { flex: 1; min-width: 180px; }
+.folder-card .folder-info h3 { margin-bottom: 0.25rem; }
 
-.folder-card .folder-info h3 {
-  margin-bottom: 0.25rem;
-}
-
-.video-player-card .poster-link {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding-bottom: 56.25%;
-  background:
-    radial-gradient(ellipse at center, rgba(201, 169, 110, 0.08) 0%, transparent 70%),
-    #000;
-  overflow: hidden;
-}
-
-.video-player-card .poster-play,
-.video-player-card .poster-caption {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.video-player-card .poster-play {
-  top: calc(50% - 1.75rem);
-  width: 72px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: var(--accent-dim);
-  border: 1px solid var(--accent);
-  transition: all var(--transition);
-}
-
-.video-player-card .poster-play svg {
-  width: 26px;
-  height: 26px;
-  fill: var(--accent);
-  margin-left: 4px;
-  transition: fill var(--transition);
-}
-
-.video-player-card .poster-caption {
-  top: calc(50% + 2.25rem);
+.folder-card .folder-info .folder-sub {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-secondary);
-}
-
-.video-player-card .poster-link:hover .poster-play {
-  background: var(--accent);
-}
-
-.video-player-card .poster-link:hover .poster-play svg {
-  fill: var(--bg-primary);
-}
-
-.video-meta {
-  padding: var(--spacing-md);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
-}
-
-.video-meta-left h3 {
-  margin-bottom: 0.25rem;
-}
-
-.video-meta-left .property-type {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
 }
 
-.download-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.7rem 1.6rem;
-  background: var(--accent-dim);
-  border: 1px solid var(--accent);
-  border-radius: 100px;
+.folder-card .btn-download { flex: 0 0 auto; }
+
+.section-label {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
   color: var(--accent);
-  transition: all var(--transition);
-  cursor: pointer;
-  text-decoration: none;
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.download-btn:hover {
+.section-label::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
   background: var(--accent);
-  color: var(--bg-primary);
-}
-
-.download-btn svg {
-  width: 16px;
-  height: 16px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 
 /* ============================================
-   DELIVERABLES LIST
+   TOAST
    ============================================ */
-.deliverables-grid {
-  display: grid;
-  gap: var(--spacing-sm);
-  max-width: 960px;
-  margin-inline: auto;
-}
-
-.deliverable-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 1.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  transition: all var(--transition);
-  gap: var(--spacing-sm);
-}
-
-.deliverable-row:hover {
-  border-color: var(--border);
-  background: var(--bg-card-hover);
-}
-
-.deliverable-row .row-left {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.deliverable-row .row-number {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-  min-width: 1.5rem;
-}
-
-.deliverable-row .row-name {
-  font-size: 0.95rem;
-  color: var(--text-primary);
-}
-
-.deliverable-row .row-type {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  margin-left: 0.5rem;
-}
-
-.row-status {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.25rem 0.75rem;
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent);
   border-radius: 100px;
-  white-space: nowrap;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  z-index: 1200;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  max-width: 90vw;
+  text-align: center;
 }
 
-.row-status.done {
-  background: rgba(110, 201, 140, 0.1);
-  color: #6ec98c;
-  border: 1px solid rgba(110, 201, 140, 0.25);
-}
-
-.row-status.upcoming {
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text-muted);
-  border: 1px solid var(--border-subtle);
-}
+.toast.show { transform: translateX(-50%) translateY(0); }
 
 /* ============================================
    FOOTER
@@ -575,6 +600,8 @@ footer {
 footer p {
   font-size: 0.8rem;
   color: var(--text-muted);
+  max-width: 70ch;
+  margin-inline: auto;
 }
 
 /* ============================================
@@ -582,20 +609,15 @@ footer p {
    ============================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
-
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-.stagger-4 { transition-delay: 0.4s; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
@@ -606,51 +628,18 @@ footer p {
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
-  .header-logos {
-    gap: 1.5rem;
-  }
-
-  .header-logos img {
-    height: 28px;
-  }
-
-  .video-meta {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .download-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .deliverable-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
-  .deliverable-row .row-left {
-    width: 100%;
-  }
-
-  .row-status {
-    align-self: flex-start;
-  }
+  .header-logos { gap: 1.5rem; }
+  .header-logos img { height: 28px; }
+  .toolbar-inner { justify-content: center; }
+  .gallery-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  .header-logos {
-    gap: 1rem;
-  }
-
-  .header-logos img {
-    height: 22px;
-  }
-
-  .header-logos .logo-divider {
-    height: 20px;
-  }
+  .header-logos { gap: 1rem; }
+  .header-logos img { height: 22px; }
+  .header-logos .logo-divider { height: 20px; }
+  .download-all-btn { width: 100%; justify-content: center; }
+  .toolbar-actions { width: 100%; }
 }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -674,576 +663,56 @@ footer p {
       <img src="assets/wcc-logo.webp" alt="WorldClass Creative logo">
     </div>
     <p class="portal-eyebrow">Client Delivery Portal</p>
-    <h1>Video <em>Deliverables</em></h1>
-    <p class="portal-subtitle">Sciame Homes &mdash; Content Sprint</p>
+    <h1>Video <em>Gallery</em></h1>
+    <p class="portal-subtitle">Sciame Homes &mdash; Content Sprint &middot; Every deliverable, ready to download</p>
   </div>
 </header>
 
 <div class="section-divider"></div>
 
 <!-- ============================================
-     FEATURED — 200 ALGOMA WAY
+     TOOLBAR — FILTERS + DOWNLOAD ALL
      ============================================ -->
-<section id="algoma">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Property Spotlight Reel</span>
-      <h2>200 Algoma Way</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <div class="embed-wrapper">
-        <iframe src="https://player.vimeo.com/video/1187858347?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="200 Algoma Way"></iframe>
-      </div>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>200 Algoma Way</h3>
-          <span class="property-type">Property Spotlight Reel &mdash; Photo + Video</span>
-        </div>
-        <a href="https://www.dropbox.com/scl/fi/7kf7bxy9mm2v6ze5k2pxi/200-Algoma-Way.mp4?rlkey=5flrj5z7njfdj0ojamsvunzvo&dl=0" target="_blank" rel="noopener" class="download-btn">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download MP4
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — 267 DUNBAR
-     ============================================ -->
-<section id="dunbar-267">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Property Spotlight Reel</span>
-      <h2>267 Dunbar Road</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <div class="embed-wrapper">
-        <iframe src="https://player.vimeo.com/video/1197508678?h=3ca995b52e&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="267 Dunbar Road"></iframe>
-      </div>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>267 Dunbar Road</h3>
-          <span class="property-type">Property Spotlight Reel &mdash; Video Only</span>
-        </div>
-        <a href="https://www.dropbox.com/scl/fi/ztcqhm7yptnt2hwkoykqq/267-Dunbar.mp4?rlkey=f1xr0w2bmhv3flgoxdu8hp1av&dl=0" target="_blank" rel="noopener" class="download-btn">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download MP4
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — 120 DUNBAR
-     ============================================ -->
-<section id="dunbar-120">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Property Spotlight Reel</span>
-      <h2>120 Dunbar Road</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <div class="embed-wrapper">
-        <iframe src="https://player.vimeo.com/video/1207072824?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="120 Dunbar Road"></iframe>
-      </div>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>120 Dunbar Road</h3>
-          <span class="property-type">Property Spotlight Reel &mdash; Video Only</span>
-        </div>
-        <a href="https://www.dropbox.com/scl/fi/7tnqltgupq3vj74au8u2s/120-Dunbar-Rd.mp4?rlkey=e17v29bv2yslc6511iav5unaz&dl=0" target="_blank" rel="noopener" class="download-btn">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download MP4
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — PRINCIPAL INTERVIEW
-     ============================================ -->
-<section id="interview">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Principal Interview</span>
-      <h2>Full Interview</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <div class="embed-wrapper">
-        <iframe src="https://player.vimeo.com/video/1206583747?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Sciame Full Interview"></iframe>
-      </div>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>Sciame Full Interview</h3>
-          <span class="property-type">Principal Interview &mdash; Full Edit</span>
-        </div>
-        <a href="https://www.dropbox.com/scl/fi/6r4s72jh2dn1tun3cerp9/Sciame-Full-Interview.mp4?rlkey=vtcpop19coqa2xm6zqxsh2bhc&dl=0" target="_blank" rel="noopener" class="download-btn">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download MP4
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — WATERFRONT LIVING REEL
-     ============================================ -->
-<section id="waterfront">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Lifestyle Reel</span>
-      <h2>Waterfront Living</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <div class="embed-wrapper">
-        <iframe src="https://player.vimeo.com/video/1206592299?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Waterfront Living Reel"></iframe>
-      </div>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>Waterfront Living Reel</h3>
-          <span class="property-type">Lifestyle Reel</span>
-        </div>
-        <a href="https://www.dropbox.com/scl/fi/rg0dr9rk0mqi8vjioue7k/Waterfront-Living-Reel-1.mov?rlkey=lruy71b9c3ht23xnll3d4zuzg&dl=0" target="_blank" rel="noopener" class="download-btn">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download MOV
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — MORNING LIGHT INTERIOR REEL
-     ============================================ -->
-<section id="morning-light">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Lifestyle Reel</span>
-      <h2>Morning Light Interior</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <div class="embed-wrapper">
-        <iframe src="https://player.vimeo.com/video/1206599527?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Morning Light Interior Reel"></iframe>
-      </div>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>Morning Light Interior Reel</h3>
-          <span class="property-type">Lifestyle Reel</span>
-        </div>
-        <a href="https://www.dropbox.com/scl/fi/ud6c814io3clkpuk7atmh/Morning-Light-Interior-Reel-3.mov?rlkey=oh9ctqjfue7gc5zxppl9wzb90&dl=0" target="_blank" rel="noopener" class="download-btn">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download MOV
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — INDOOR/OUTDOOR ENTERTAINING REEL
-     ============================================ -->
-<section id="indoor-outdoor">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Lifestyle Reel</span>
-      <h2>Indoor/Outdoor Entertaining</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <div class="embed-wrapper">
-        <iframe src="https://player.vimeo.com/video/1206632987?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Indoor/Outdoor Entertaining Reel"></iframe>
-      </div>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>Indoor/Outdoor Entertaining Reel</h3>
-          <span class="property-type">Lifestyle Reel</span>
-        </div>
-        <a href="https://www.dropbox.com/scl/fi/qoyvoww9zx5m4aexxzhh2/Indoor-Outdoor-Reel-2.mov?rlkey=huf8b1j76oqm5la4vk5cl8jdy&st=ecj9r0vu&dl=0" target="_blank" rel="noopener" class="download-btn">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download MOV
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — CRAFT & PROCESS SERIES
-     ============================================ -->
-<section id="craft-process">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Craft &amp; Process Series</span>
-      <h2>1420 South Ocean Blvd</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <div class="embed-wrapper">
-        <iframe src="https://player.vimeo.com/video/1208151323?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Craft & Process — 1420 South Ocean Blvd"></iframe>
-      </div>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>1420 South Ocean Blvd, Manalapan</h3>
-          <span class="property-type">Craft &amp; Process Series</span>
-        </div>
-        <a href="https://www.dropbox.com/scl/fi/7y9aji5z6t32nr87u3lz6/Build-01.mp4?rlkey=k5q4lkfz7t9tf8e02502od8ad&dl=0" target="_blank" rel="noopener" class="download-btn">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download MP4
-        </a>
-      </div>
-    </div>
-
-    <p class="reveal stagger-2" style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: var(--spacing-md); text-align: center;">
-      Note: Permission for 300 North Lakeway could not be secured, so the Craft &amp; Process Series consists of this single reel at 1420 South Ocean Blvd.
-    </p>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — PHILOSOPHY SOUNDBITE
-     ============================================ -->
-<section id="philosophy">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Principal Interview Clip</span>
-      <h2>Sciame — Philosophy</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <a href="https://vimeo.com/share/21ad47c5-8fe1-4e41-bfb3-b0f35bdbef55" target="_blank" rel="noopener" class="poster-link">
-        <div class="poster-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
-        <span class="poster-caption">Watch on Vimeo</span>
-      </a>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>Philosophy Soundbite</h3>
-          <span class="property-type">Principal Interview &mdash; 15–30 sec</span>
-        </div>
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <a href="https://vimeo.com/share/21ad47c5-8fe1-4e41-bfb3-b0f35bdbef55" target="_blank" rel="noopener" class="download-btn" style="background: transparent;">
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="8,5 20,12 8,19"/></svg>
-            Watch on Vimeo
-          </a>
-          <a href="https://www.dropbox.com/scl/fi/y4jm4zqfe6l7xxwbqfcx1/Sciame-Philosophy.mp4?rlkey=ix25lg0aw0ejepbgyb0599zg0&dl=0" target="_blank" rel="noopener" class="download-btn">
-            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download MP4
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — WHY WE'RE DIFFERENT CLIP
-     ============================================ -->
-<section id="why-different">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Principal Interview Clip</span>
-      <h2>Sciame — Why We're Different</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <a href="https://vimeo.com/share/362afd03-95f9-46e0-ab3a-344f8baf4ac4" target="_blank" rel="noopener" class="poster-link">
-        <div class="poster-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
-        <span class="poster-caption">Watch on Vimeo</span>
-      </a>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>"Why We're Different" Clip</h3>
-          <span class="property-type">Principal Interview &mdash; 15–30 sec</span>
-        </div>
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <a href="https://vimeo.com/share/362afd03-95f9-46e0-ab3a-344f8baf4ac4" target="_blank" rel="noopener" class="download-btn" style="background: transparent;">
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="8,5 20,12 8,19"/></svg>
-            Watch on Vimeo
-          </a>
-          <a href="https://www.dropbox.com/scl/fi/j7za6cwdfu2htg7rgei20/Sciame-Why-We-re-Different.mp4?rlkey=bzpjq57jggpzmujuytzrlckpv&dl=0" target="_blank" rel="noopener" class="download-btn">
-            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download MP4
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — PROCESS / CRAFT QUOTE
-     ============================================ -->
-<section id="craft-quote">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Principal Interview Clip</span>
-      <h2>Sciame — Craft</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <a href="https://vimeo.com/share/814c50ee-783a-4f45-808f-1567af4dc484" target="_blank" rel="noopener" class="poster-link">
-        <div class="poster-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
-        <span class="poster-caption">Watch on Vimeo</span>
-      </a>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>Process / Craft Quote</h3>
-          <span class="property-type">Principal Interview &mdash; 15–30 sec</span>
-        </div>
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <a href="https://vimeo.com/share/814c50ee-783a-4f45-808f-1567af4dc484" target="_blank" rel="noopener" class="download-btn" style="background: transparent;">
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="8,5 20,12 8,19"/></svg>
-            Watch on Vimeo
-          </a>
-          <a href="https://www.dropbox.com/scl/fi/5ukxm16c7wdxgy7ihzyfh/Sciame-Craft.mp4?rlkey=aetlj7khi2sub1udg4cm03i85&dl=0" target="_blank" rel="noopener" class="download-btn">
-            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download MP4
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     FEATURED — FUTURE VISION CLIP
-     ============================================ -->
-<section id="future-vision">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Principal Interview Clip</span>
-      <h2>Sciame — Future</h2>
-    </div>
-
-    <div class="video-player-card reveal stagger-1">
-      <a href="https://vimeo.com/share/615e65ec-1f69-410f-bcd6-d273c1868e21" target="_blank" rel="noopener" class="poster-link">
-        <div class="poster-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div>
-        <span class="poster-caption">Watch on Vimeo</span>
-      </a>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <h3>Future Vision Clip</h3>
-          <span class="property-type">Principal Interview &mdash; 15–30 sec</span>
-        </div>
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <a href="https://vimeo.com/share/615e65ec-1f69-410f-bcd6-d273c1868e21" target="_blank" rel="noopener" class="download-btn" style="background: transparent;">
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="8,5 20,12 8,19"/></svg>
-            Watch on Vimeo
-          </a>
-          <a href="https://www.dropbox.com/scl/fi/4bqffoh88hs1jzdpf5pes/Sciame-Future.mp4?rlkey=hf94cc7ga01h1g99nq91rf7ip&dl=0" target="_blank" rel="noopener" class="download-btn">
-            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download MP4
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     ALL DELIVERABLES TRACKER
-     ============================================ -->
-<section id="tracker">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <span class="section-number">Delivery Tracker</span>
-      <h2>All Video Deliverables</h2>
-    </div>
-
-    <div class="deliverables-grid">
-      <h4 class="reveal" style="margin-bottom: 0.5rem;">Property Spotlight Reels</h4>
-
-      <div class="deliverable-row reveal stagger-1">
-        <div class="row-left">
-          <span class="row-number">01</span>
-          <span class="row-name">200 Algoma Way</span>
-          <span class="row-type">Photo + Video</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <div class="deliverable-row reveal stagger-2">
-        <div class="row-left">
-          <span class="row-number">02</span>
-          <span class="row-name">120 Dunbar</span>
-          <span class="row-type">Video Only</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <div class="deliverable-row reveal stagger-3">
-        <div class="row-left">
-          <span class="row-number">03</span>
-          <span class="row-name">267 Dunbar</span>
-          <span class="row-type">Video Only</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <h4 class="reveal" style="margin-top: var(--spacing-md); margin-bottom: 0.5rem;">Lifestyle Reels</h4>
-
-      <div class="deliverable-row reveal stagger-1">
-        <div class="row-left">
-          <span class="row-number">04</span>
-          <span class="row-name">Waterfront Living</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <div class="deliverable-row reveal stagger-2">
-        <div class="row-left">
-          <span class="row-number">05</span>
-          <span class="row-name">Indoor/Outdoor Entertaining</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <div class="deliverable-row reveal stagger-3">
-        <div class="row-left">
-          <span class="row-number">06</span>
-          <span class="row-name">Morning Light Interior</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <h4 class="reveal" style="margin-top: var(--spacing-md); margin-bottom: 0.5rem;">Craft &amp; Process Series</h4>
-
-      <div class="deliverable-row reveal stagger-1">
-        <div class="row-left">
-          <span class="row-number">07</span>
-          <span class="row-name">1420 South Ocean Blvd, Manalapan</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <p class="reveal stagger-2" style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin: 0.25rem 0 0 0; text-align: left;">
-        A second reel at 300 North Lakeway was planned, but permission could not be secured.
-      </p>
-
-      <h4 class="reveal" style="margin-top: var(--spacing-md); margin-bottom: 0.5rem;">Principal Interview</h4>
-
-      <div class="deliverable-row reveal stagger-1">
-        <div class="row-left">
-          <span class="row-number">09</span>
-          <span class="row-name">Full Interview</span>
-          <span class="row-type">2–3 min</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <div class="deliverable-row reveal stagger-2">
-        <div class="row-left">
-          <span class="row-number">10</span>
-          <span class="row-name">Philosophy Soundbite</span>
-          <span class="row-type">15–30 sec</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <div class="deliverable-row reveal stagger-3">
-        <div class="row-left">
-          <span class="row-number">11</span>
-          <span class="row-name">"Why We're Different" Clip</span>
-          <span class="row-type">15–30 sec</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <div class="deliverable-row reveal stagger-4">
-        <div class="row-left">
-          <span class="row-number">12</span>
-          <span class="row-name">Process / Craft Quote</span>
-          <span class="row-type">15–30 sec</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-
-      <div class="deliverable-row reveal stagger-1">
-        <div class="row-left">
-          <span class="row-number">13</span>
-          <span class="row-name">Future Vision Clip</span>
-          <span class="row-type">15–30 sec</span>
-        </div>
-        <span class="row-status done">Delivered</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ============================================
-     EXTRA TEXTURE & HERO SHOTS
-     ============================================ -->
-<section id="texture">
-  <div class="container">
-    <div class="deliverable-header reveal">
-      <div class="status-badge delivered">Delivered</div>
-      <span class="section-number">Bonus Bank</span>
-      <h2>Extra Texture &amp; Hero Shots</h2>
-      <p class="deliverable-description">
-        A supplementary library of texture clips, detail shots, and hero B-roll captured across the shoot. Ready-to-deploy footage for Stories, Reel intros, transitions, and website backgrounds. Browse and download the full set in Dropbox.
-      </p>
-    </div>
-
-    <div class="folder-card reveal stagger-1">
-      <div class="folder-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-      </div>
-      <div class="folder-info">
-        <h3>Texture &amp; Hero Shots — Full Set</h3>
-        <span class="property-type">Video Bank &mdash; Dropbox Folder</span>
-      </div>
-      <a href="https://www.dropbox.com/scl/fo/7qsvlnipm6uyv0nl8c48j/ALCXM4qHoMkpd8CWK7zRCX8?rlkey=6rjulcotyu57x1xzftvk0knj1&dl=0" target="_blank" rel="noopener" class="download-btn">
+<div class="gallery-toolbar">
+  <div class="container toolbar-inner">
+    <div class="filter-chips" id="filterChips"></div>
+    <div class="toolbar-actions">
+      <button class="download-all-btn" id="downloadAllBtn" type="button">
         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Open the Folder
-      </a>
+        Download All
+      </button>
     </div>
+  </div>
+</div>
+
+<!-- ============================================
+     GALLERY GRID
+     ============================================ -->
+<section class="gallery-section">
+  <div class="container">
+    <div class="gallery-grid" id="galleryGrid"></div>
+
+    <!-- BONUS BANK -->
+    <div style="margin-top: var(--spacing-lg);">
+      <div class="section-label reveal">Bonus Bank</div>
+      <div class="folder-card reveal">
+        <div class="folder-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <div class="folder-info">
+          <h3>Extra Texture &amp; Hero Shots — Full Set</h3>
+          <span class="folder-sub">Video Bank &mdash; Dropbox Folder</span>
+        </div>
+        <a href="https://www.dropbox.com/scl/fo/7qsvlnipm6uyv0nl8c48j/ALCXM4qHoMkpd8CWK7zRCX8?rlkey=6rjulcotyu57x1xzftvk0knj1&dl=0" target="_blank" rel="noopener" class="btn btn-download">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Open Folder
+        </a>
+      </div>
+    </div>
+
+    <p class="reveal" style="font-size: 0.82rem; color: var(--text-muted); font-style: italic; margin-top: var(--spacing-md); text-align: center; max-width: 70ch; margin-inline: auto;">
+      Note: Permission for 300 North Lakeway could not be secured, so the Craft &amp; Process Series consists of the single reel at 1420 South Ocean Blvd.
+    </p>
   </div>
 </section>
 
@@ -1261,6 +730,8 @@ footer p {
   <p>Prepared by WorldClass Creative &times; Trevor Melton Photography</p>
 </footer>
 
+<div class="toast" id="toast"></div>
+
 <!-- ============================================
      JAVASCRIPT
      ============================================ -->
@@ -1268,8 +739,189 @@ footer p {
 (function() {
   'use strict';
 
-  var progressBar = document.getElementById('progressBar');
+  /* ---- Asset data ---- */
+  var ASSETS = [
+    { title: '200 Algoma Way', category: 'Property Reels', format: 'Photo + Video · MP4',
+      vimeo: '1187858347',
+      download: 'https://www.dropbox.com/scl/fi/7kf7bxy9mm2v6ze5k2pxi/200-Algoma-Way.mp4?rlkey=5flrj5z7njfdj0ojamsvunzvo&dl=1' },
+    { title: '267 Dunbar Road', category: 'Property Reels', format: 'Video Only · MP4',
+      vimeo: '1197508678?h=3ca995b52e',
+      download: 'https://www.dropbox.com/scl/fi/ztcqhm7yptnt2hwkoykqq/267-Dunbar.mp4?rlkey=f1xr0w2bmhv3flgoxdu8hp1av&dl=1' },
+    { title: '120 Dunbar Road', category: 'Property Reels', format: 'Video Only · MP4',
+      vimeo: '1207072824',
+      download: 'https://www.dropbox.com/scl/fi/7tnqltgupq3vj74au8u2s/120-Dunbar-Rd.mp4?rlkey=e17v29bv2yslc6511iav5unaz&dl=1' },
+    { title: 'Waterfront Living Reel', category: 'Lifestyle Reels', format: 'Lifestyle · MOV',
+      vimeo: '1206592299',
+      download: 'https://www.dropbox.com/scl/fi/rg0dr9rk0mqi8vjioue7k/Waterfront-Living-Reel-1.mov?rlkey=lruy71b9c3ht23xnll3d4zuzg&dl=1' },
+    { title: 'Indoor/Outdoor Entertaining Reel', category: 'Lifestyle Reels', format: 'Lifestyle · MOV',
+      vimeo: '1206632987',
+      download: 'https://www.dropbox.com/scl/fi/qoyvoww9zx5m4aexxzhh2/Indoor-Outdoor-Reel-2.mov?rlkey=huf8b1j76oqm5la4vk5cl8jdy&dl=1' },
+    { title: 'Morning Light Interior Reel', category: 'Lifestyle Reels', format: 'Lifestyle · MOV',
+      vimeo: '1206599527',
+      download: 'https://www.dropbox.com/scl/fi/ud6c814io3clkpuk7atmh/Morning-Light-Interior-Reel-3.mov?rlkey=oh9ctqjfue7gc5zxppl9wzb90&dl=1' },
+    { title: '1420 South Ocean Blvd, Manalapan', category: 'Craft & Process', format: 'Craft & Process · MP4',
+      vimeo: '1208151323',
+      download: 'https://www.dropbox.com/scl/fi/7y9aji5z6t32nr87u3lz6/Build-01.mp4?rlkey=k5q4lkfz7t9tf8e02502od8ad&dl=1' },
+    { title: 'Sciame Full Interview', category: 'Interview', format: 'Full Edit · MP4',
+      vimeo: '1206583747',
+      download: 'https://www.dropbox.com/scl/fi/6r4s72jh2dn1tun3cerp9/Sciame-Full-Interview.mp4?rlkey=vtcpop19coqa2xm6zqxsh2bhc&dl=1' },
+    { title: 'Philosophy Soundbite', category: 'Interview', format: 'Clip · 15–30 sec · MP4',
+      watch: 'https://vimeo.com/share/21ad47c5-8fe1-4e41-bfb3-b0f35bdbef55',
+      download: 'https://www.dropbox.com/scl/fi/y4jm4zqfe6l7xxwbqfcx1/Sciame-Philosophy.mp4?rlkey=ix25lg0aw0ejepbgyb0599zg0&dl=1' },
+    { title: '"Why We\'re Different" Clip', category: 'Interview', format: 'Clip · 15–30 sec · MP4',
+      watch: 'https://vimeo.com/share/362afd03-95f9-46e0-ab3a-344f8baf4ac4',
+      download: 'https://www.dropbox.com/scl/fi/j7za6cwdfu2htg7rgei20/Sciame-Why-We-re-Different.mp4?rlkey=bzpjq57jggpzmujuytzrlckpv&dl=1' },
+    { title: 'Process / Craft Quote', category: 'Interview', format: 'Clip · 15–30 sec · MP4',
+      watch: 'https://vimeo.com/share/814c50ee-783a-4f45-808f-1567af4dc484',
+      download: 'https://www.dropbox.com/scl/fi/5ukxm16c7wdxgy7ihzyfh/Sciame-Craft.mp4?rlkey=aetlj7khi2sub1udg4cm03i85&dl=1' },
+    { title: 'Future Vision Clip', category: 'Interview', format: 'Clip · 15–30 sec · MP4',
+      watch: 'https://vimeo.com/share/615e65ec-1f69-410f-bcd6-d273c1868e21',
+      download: 'https://www.dropbox.com/scl/fi/4bqffoh88hs1jzdpf5pes/Sciame-Future.mp4?rlkey=hf94cc7ga01h1g99nq91rf7ip&dl=1' }
+  ];
 
+  var CATEGORY_ORDER = ['All', 'Property Reels', 'Lifestyle Reels', 'Craft & Process', 'Interview'];
+
+  var grid = document.getElementById('galleryGrid');
+  var chipsWrap = document.getElementById('filterChips');
+  var toast = document.getElementById('toast');
+
+  var PLAY_SVG = '<svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg>';
+  var DL_SVG = '<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  /* ---- Build gallery cards ---- */
+  ASSETS.forEach(function(a) {
+    var card = document.createElement('article');
+    card.className = 'asset-card reveal';
+    card.setAttribute('data-category', a.category);
+
+    var mediaInner;
+    if (a.vimeo) {
+      // Click-to-load Vimeo facade for performance
+      mediaInner = '<div class="media-tag">' + PLAY_SVG.replace('viewBox', 'style="width:9px;height:9px;fill:currentColor;vertical-align:middle;margin-right:4px" viewBox') + 'Play</div>' +
+        '<div class="play-overlay"><div class="play-btn">' + PLAY_SVG + '</div></div>';
+      card.innerHTML =
+        '<div class="asset-media" data-vimeo="' + esc(a.vimeo) + '" role="button" tabindex="0" aria-label="Play ' + esc(a.title) + '">' + mediaInner + '</div>';
+    } else {
+      // Watch-on-Vimeo poster (share link, no embed)
+      card.innerHTML =
+        '<a class="asset-media" href="' + esc(a.watch) + '" target="_blank" rel="noopener" aria-label="Watch ' + esc(a.title) + ' on Vimeo">' +
+          '<div class="media-tag">Vimeo</div>' +
+          '<div class="play-overlay"><div class="play-btn">' + PLAY_SVG + '</div></div>' +
+        '</a>';
+    }
+
+    var actions = '';
+    if (a.watch) {
+      actions += '<a class="btn btn-watch" href="' + esc(a.watch) + '" target="_blank" rel="noopener">' + PLAY_SVG + 'Watch</a>';
+    }
+    actions += '<a class="btn btn-download" href="' + esc(a.download) + '" target="_blank" rel="noopener" download>' + DL_SVG + 'Download</a>';
+
+    var body = document.createElement('div');
+    body.className = 'asset-body';
+    body.innerHTML =
+      '<span class="asset-cat">' + esc(a.category) + '</span>' +
+      '<h3>' + esc(a.title) + '</h3>' +
+      '<span class="asset-format">' + esc(a.format) + '</span>' +
+      '<div class="asset-actions">' + actions + '</div>';
+
+    card.appendChild(body);
+    grid.appendChild(card);
+  });
+
+  /* ---- Click-to-play (load iframe on demand) ---- */
+  function loadEmbed(el) {
+    if (el.dataset.loaded) return;
+    var id = el.getAttribute('data-vimeo');
+    el.dataset.loaded = '1';
+    var iframe = document.createElement('iframe');
+    var sep = id.indexOf('?') > -1 ? '&' : '?';
+    iframe.src = 'https://player.vimeo.com/video/' + id + sep + 'autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479';
+    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
+    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    iframe.setAttribute('title', 'Video player');
+    el.innerHTML = '';
+    el.appendChild(iframe);
+    el.style.cursor = 'default';
+  }
+
+  grid.addEventListener('click', function(e) {
+    var media = e.target.closest('.asset-media[data-vimeo]');
+    if (media) loadEmbed(media);
+  });
+  grid.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var media = e.target.closest('.asset-media[data-vimeo]');
+    if (media) { e.preventDefault(); loadEmbed(media); }
+  });
+
+  /* ---- Filter chips ---- */
+  function countFor(cat) {
+    if (cat === 'All') return ASSETS.length;
+    return ASSETS.filter(function(a) { return a.category === cat; }).length;
+  }
+
+  CATEGORY_ORDER.forEach(function(cat, i) {
+    if (cat !== 'All' && countFor(cat) === 0) return;
+    var chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'chip' + (i === 0 ? ' active' : '');
+    chip.setAttribute('data-cat', cat);
+    chip.innerHTML = esc(cat) + '<span class="chip-count">' + countFor(cat) + '</span>';
+    chipsWrap.appendChild(chip);
+  });
+
+  chipsWrap.addEventListener('click', function(e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    var cat = chip.getAttribute('data-cat');
+    chipsWrap.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+    grid.querySelectorAll('.asset-card').forEach(function(card) {
+      var show = cat === 'All' || card.getAttribute('data-category') === cat;
+      card.classList.toggle('hidden', !show);
+    });
+  });
+
+  /* ---- Toast ---- */
+  var toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 4000);
+  }
+
+  /* ---- Download All (respects active filter) ---- */
+  document.getElementById('downloadAllBtn').addEventListener('click', function() {
+    var active = chipsWrap.querySelector('.chip.active');
+    var cat = active ? active.getAttribute('data-cat') : 'All';
+    var list = ASSETS.filter(function(a) {
+      return (cat === 'All' || a.category === cat) && a.download;
+    });
+    if (!list.length) return;
+
+    showToast('Starting ' + list.length + ' download' + (list.length > 1 ? 's' : '') + '… allow multiple files if your browser asks.');
+
+    list.forEach(function(a, i) {
+      setTimeout(function() {
+        var link = document.createElement('a');
+        link.href = a.download;
+        link.setAttribute('download', '');
+        link.setAttribute('target', '_blank');
+        link.rel = 'noopener';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }, i * 700);
+    });
+  });
+
+  /* ---- Progress bar ---- */
+  var progressBar = document.getElementById('progressBar');
   function updateProgress() {
     var scrollTop = window.scrollY;
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -1277,36 +929,25 @@ footer p {
     progressBar.style.width = progress + '%';
   }
 
-  var revealElements = document.querySelectorAll('.reveal');
-
+  /* ---- Reveal on scroll ---- */
   var revealObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -60px 0px'
-  });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-  revealElements.forEach(function(el) {
-    revealObserver.observe(el);
-  });
+  document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
 
   var ticking = false;
-
-  function onScroll() {
+  window.addEventListener('scroll', function() {
     if (!ticking) {
-      requestAnimationFrame(function() {
-        updateProgress();
-        ticking = false;
-      });
+      requestAnimationFrame(function() { updateProgress(); ticking = false; });
       ticking = true;
     }
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
+  }, { passive: true });
   updateProgress();
 })();
 </script>
